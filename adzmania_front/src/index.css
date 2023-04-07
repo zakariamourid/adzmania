@@ -3,3 +3,68 @@
 @tailwind utilities;
 /* sideBar */
 /* Styling for the navbar */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 1rem 0;
+  background: #ffffff;
+  color: #fff;
+  height: 100%;
+  width: 260px;
+  z-index: 100;
+  transition: all 0.5s ease;
+}
+.logo-details {
+  margin-bottom: 2rem;
+}
+/* home section */
+.home-section {
+  position: relative;
+  background: #f3f3f3;
+  height: 100vh;
+  left: 260px;
+  width: calc(100% - 260px);
+  transition: all 0.5s ease;
+}
+.nav-links {
+  list-style: none;
+  flex-grow: 1;
+
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.nav-link a {
+  pointer: cursor;
+  display: flex;
+  align-items: center;
+  color: #000;
+  text-decoration: none;
+  padding: 1rem 1rem;
+  width: 100%;
+  transition: all 0.4s ease;
+  padding-left: 2rem;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+.nav-link a span {
+  margin-left: 0.75rem;
+}
+
+.nav-link a:hover {
+  background: #ff0031;
+  color: #fff;
+}
+.logout-link a:hover {
+  color: #ff0031;
+  background: #fff;
+}
+.active-link,
+.active-link a {
+  color: #ff0031;
+}

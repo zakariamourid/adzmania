@@ -11,7 +11,9 @@ function DefaultLayout() {
   return (
     <div className="defaultLayout">
       <SideBar />
-      <Outlet />
+      <div className="home-section">
+        <Outlet />
+      </div>
     </div>
   );
 }
