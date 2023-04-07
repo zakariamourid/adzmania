@@ -8,6 +8,9 @@ import SignUp from "./Views/SignUp.jsx";
 import { Navigate } from "react-router-dom";
 import NotFound from "./Views/NotFound.jsx";
 import Orders from "./Views/Orders.jsx";
+import NewOrder from "./Views/NewOrder.jsx";
+import Settings from "./Views/Settings.jsx";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -24,6 +27,14 @@ const router = createBrowserRouter([
       {
         path: "/orders",
         element: <Orders />,
+      },
+      {
+        path: "/new-order",
+        element: <NewOrder />,
+      },
+      {
+        path: "/settings",
+        element: <Settings />,
       },
     ],
   },
