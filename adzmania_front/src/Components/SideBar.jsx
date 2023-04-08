@@ -55,7 +55,7 @@ const SideBar = () => {
         </li>
       </ul>
       <div className="logout-link nav-link ">
-        <a onClick={handleLogout}>
+        <a onClick={handleLogout} className="cursor-pointer">
           <ArrowLeftOnRectangleIcon className="h-6 w-6" />
           <span className="links_name">Logout</span>
         </a>

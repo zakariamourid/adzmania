@@ -18,6 +18,18 @@
   z-index: 100;
   transition: all 0.5s ease;
 }
+.top-bar {
+  display: flex;
+  background: #da4040;
+  height: 40px;
+  position: fixed;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  left: 260px;
+  width: calc(100% - 260px);
+}
+
 .logo-details {
   margin-bottom: 2rem;
 }
@@ -27,13 +39,13 @@
   background: #f3f3f3;
   height: 100vh;
   left: 260px;
+  top: 40px;
   width: calc(100% - 260px);
   transition: all 0.5s ease;
 }
 .nav-links {
   list-style: none;
   flex-grow: 1;
-
   padding: 0;
   margin: 0;
   width: 100%;
@@ -67,4 +79,21 @@
 .active-link,
 .active-link a {
   color: #ff0031;
+  background: #da4040;
+  color: #fff;
+}
+@media (max-width: 640px) {
+  .sidebar {
+    position: relative;
+    left: 0;
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .sidebar .logo-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+  }
 }
