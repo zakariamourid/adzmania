@@ -11,8 +11,7 @@
   top: 0;
   left: 0;
   padding: 1rem 0;
-  background: #ffffff;
-  color: #fff;
+  color: white;
   height: 100%;
   width: 260px;
   z-index: 100;
@@ -20,16 +19,10 @@
 }
 .top-bar {
   display: flex;
-  align-items: center;
-  background: #da4040;
-  height: 60px;
-  position: fixed;
   justify-content: space-between;
   align-items: center;
-  padding: 0 2rem;
-  left: 260px;
-  width: calc(100% - 260px);
-  z-index: 99;
+  padding: 0rem 1rem;
+  background: white;
 }
 
 .logo-details {
@@ -41,7 +34,6 @@
   background: #f3f3f3;
   height: 100vh;
   left: 260px;
-  top: 60px;
   width: calc(100% - 260px);
   transition: all 0.5s ease;
 }
@@ -57,7 +49,7 @@
   pointer: cursor;
   display: flex;
   align-items: center;
-  color: #000;
+  color: #da4040;
   text-decoration: none;
   padding: 1rem 1rem;
   width: 100%;
@@ -76,7 +68,7 @@
 }
 .logout-link a:hover {
   color: #ff0031;
-  background: #fff;
+  background: black;
 }
 .active-link,
 .active-link a {
@@ -95,8 +87,20 @@
     justify-content: center;
     margin-bottom: 2rem;
   }
+  .nav-link a:hover {
+    background: white;
+    color: red;
+  }
+  .active-link a,
+  .active-link {
+    background: white;
+    color: red;
+  }
   .home-section,
   .top-bar {
     display: none;
+  }
+  .go-left {
+    left: -100%;
   }
 }

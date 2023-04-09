@@ -6,13 +6,10 @@ import { PlusIcon } from "@heroicons/react/24/outline";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import { Cog8ToothIcon } from "@heroicons/react/24/outline";
 import { ArrowLeftOnRectangleIcon } from "@heroicons/react/24/outline";
-import { HandThumbUpIcon } from "@heroicons/react/24/outline";
-
 import { Link, useLocation } from "react-router-dom";
 
 const SideBar = () => {
   const location = useLocation();
-  const [activeLink, setActiveLink] = useState("");
   const isActive = (path) => location.pathname === path;
   const handleLogout = () => {
     localStorage.removeItem("ACCESS_TOKEN");
@@ -20,12 +17,14 @@ const SideBar = () => {
   };
 
   return (
-    <div className="sidebar">
+    <div className="sidebar bg-tb">
       <div className="logo-details  flex justify-center">
-        <img src={Logo} alt="logo" />
+        <Link to="/dashboard">
+          <img src={Logo} alt="logo" />
+        </Link>
       </div>
       <div className="hamburger absolute right-9 top-9">
-        <HandThumbUpIcon className="w-6 h-6 text-red-400" />
+        {/* <HandThumbUpIcon className="w-6 h-6 text-red-400" /> */}
       </div>
       <ul className="nav-links text-black">
         <li

@@ -11,9 +11,9 @@ function DefaultLayout() {
   if (!token) return <Navigate to="/login" />;
   return (
     <div className="defaultLayout">
-      <TopBar />
       <SideBar />
       <div className="home-section">
+        <TopBar />
         <Outlet />
       </div>
     </div>

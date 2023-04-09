@@ -6,7 +6,13 @@ const StateContext = createContext({
   setToken: () => {},
 });
 export const ContextProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({
+    name: "ahmed",
+    lastName: "brahim",
+    email: "zakariamourid10@gmail.com",
+    phone: "0663054819",
+    password: "",
+  }); // mock name
   const [token, _setToken] = useState(localStorage.getItem("ACCESS_TOKEN")); //TODO: remember to make this get data from session
   const setToken = (token) => {
     _setToken(token);

@@ -1,7 +1,11 @@
 import React from "react";
 
 function Orders() {
-  return <div>Orders</div>;
+  return (
+    <div className="container p-10">
+      <h1>Orders</h1>
+    </div>
+  );
 }
 
 export default Orders;
