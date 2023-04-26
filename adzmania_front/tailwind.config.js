@@ -7,6 +7,7 @@ module.exports = {
         tb: "#000000",
         main_red: "#FF0031",
         second_red: "#DA4040",
+        backgroud_light_red: "#ff0031",
         st_delivered_text: "#1F9254",
         st_delivered_bg: "#EBF9F1",
         st_process_text: "#CD6200",

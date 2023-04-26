@@ -15,7 +15,7 @@ function TopBar() {
   return (
     <div className="top-bar">
       <div>
-        <img src={LogoCenter} class="w-40 h-24" alt="" />
+        <img src={LogoCenter} className="w-40 h-24" alt="" />
       </div>
       <div className="flex align-center ">
         <div className=" inline-flex items-center  mr-2">

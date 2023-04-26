@@ -110,7 +110,7 @@ function OrdersTable() {
                           ? "bg-red-50  border-b"
                           : " bg-white border-b"
                       }
-                      key={order.id}
+                      key={order.order_id}
                     >
                       <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900  font-bold">
                         {order.order_id}
