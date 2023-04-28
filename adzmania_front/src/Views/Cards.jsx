@@ -7,9 +7,9 @@ import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 function cards() {
   return (
-    <div className="cards-secXtion">
-      <div className="section-header ">
-        <h1>Dashboard</h1>
+    <div className="cards-section">
+      <div className="section-header">
+        <h1 className="dark:text-white text-3xl font-bold">Dashboard</h1>
         <button>
           <Link
             to="/new-order"
@@ -20,45 +20,45 @@ function cards() {
         </button>
       </div>
       <div className="cards">
-        <div className="card">
+        <div className="card dark:bg-dark_cards">
           <div className="card-header">
-            <h2 className="card-header-name">All Orders</h2>
+            <h2 className="card-header-name dark:text-white">All Orders</h2>
           </div>
           <div className="card-body">
-            <p className="card-body-text">5</p>
+            <p className="card-body-text dark:text-white">5</p>
             <div className="card-icon">
               <ArchiveBoxIcon className="w-12 h-10" />
             </div>
           </div>
         </div>{" "}
-        <div className="card">
+        <div className="card dark:bg-dark_cards">
           <div className="card-header">
-            <h2 className="card-header-name">Pending</h2>
+            <h2 className="card-header-name dark:text-white">Pending</h2>
           </div>
           <div className="card-body">
-            <p className="card-body-text">1</p>
+            <p className="card-body-tex dark:text-white">1</p>
             <div className="card-icon">
               <ClockIcon className="w-12 h-10" />
             </div>
           </div>
         </div>{" "}
-        <div className="card">
+        <div className="card dark:bg-dark_cards">
           <div className="card-header">
-            <h2 className="card-header-name">Process</h2>
+            <h2 className="card-header-name dark:text-white">Process</h2>
           </div>
           <div className="card-body">
-            <p className="card-body-text">2</p>
+            <p className="card-body-text dark:text-white">2</p>
             <div className="card-icon">
               <ArrowPathRoundedSquareIcon className="w-12 h-10" />
             </div>
           </div>
         </div>
-        <div className="card">
+        <div className="card dark:bg-dark_cards">
           <div className="card-header">
-            <h2 className="card-header-name">Completed</h2>
+            <h2 className="card-header-name dark:text-white">Completed</h2>
           </div>
           <div className="card-body">
-            <p className="card-body-text">2</p>
+            <p className="card-body-text dark:text-white">2</p>
             <div className="card-icon">
               <CheckCircleIcon className="w-12 h-10" />
             </div>

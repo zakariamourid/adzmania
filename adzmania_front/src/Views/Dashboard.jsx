@@ -1,5 +1,5 @@
 import React from "react";
-import "./dashboard.css";
+import "../index.css";
 import Cards from "./cards";
 import OrdersTable from "./OrdersTable";
 function Dashboard() {

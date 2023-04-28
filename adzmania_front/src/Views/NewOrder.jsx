@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+// import { useRef, useEffect } from "react";
 import Input from "./order-form/Input";
 // import facebookLogo from "../assets/Logo/facebookLogo.svg";
 // import instagramLogo from "../assets/Logo/instagramLogo.svg";
@@ -13,8 +14,15 @@ import PaypalLogo from "./order-form/payment_logo/PaypalLogo.svg";
 import PayoneerLogo from "./order-form/payment_logo/PayonnerLogo.svg";
 import WiseLogo from "./order-form/payment_logo/WiseLogo.svg";
 import PaymentMethods from "./order-form/PaymentMethods";
+import OrderSummary from "./order-form/OrderSummary";
 
 function NewOrder() {
+  const [errors, setErrors] = useState({
+    businessName: false,
+    contactName: false,
+    contactEmail: false,
+  });
+  console.log("render");
   const amounts = [
     { amount: "10" },
     { amount: "50" },
@@ -26,6 +34,12 @@ function NewOrder() {
   const [selectedAmount, setSelectedAmount] = useState(amounts[0]);
   const handleSelectAmount = (amount) => {
     setSelectedAmount(amount);
+    if (amount.amount !== "custom") {
+      setFormData((prevState) => ({
+        ...prevState,
+        budget: amount.amount,
+      }));
+    }
   };
   const [defaultPaymentMethods, setdefaultPaymentMethods] = useState([
     { name: "Cih", isSelected: true, image: CihLogo },
@@ -52,9 +66,9 @@ function NewOrder() {
     businessName: "",
     contactName: "",
     contactEmail: "",
-    budget: "",
+    budget: "10",
     platform: "",
-    paymentMethod: "",
+    paymentMethod: "Cih",
   });
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -68,29 +82,57 @@ function NewOrder() {
   };
   const [FormStep, setFormStep] = useState(0);
   function NextStep() {
+    if (FormStep === 4) {
+      return;
+    }
+    if (FormStep === 1) {
+      if (formData.businessName === "") {
+        setErrors((prevState) => ({ ...prevState, businessName: true }));
+        return;
+      }
+      if (formData.contactName === "") {
+        setErrors((prevState) => ({ ...prevState, contactName: true }));
+        return;
+      }
+      if (formData.contactEmail === "") {
+        setErrors((prevState) => ({ ...prevState, contactEmail: true }));
+        return;
+      }
+      setErrors((prevState) => ({
+        ...prevState,
+        businessName: false,
+        contactName: false,
+        contactEmail: false,
+      }));
+    }
+    // wait 1 second to show the loading
+
     setFormStep(FormStep + 1);
   }
   function PreviousStep() {
+    if (FormStep === 0) {
+      return;
+    }
     setFormStep(FormStep - 1);
   }
 
   return (
-    <div className="section p-16  rounded-lg mt-8 ml-12">
+    <div className="section p-8  rounded-lg mt-4 ml-12">
       {FormStep === 0 && (
         <section>
           {" "}
           <div className="text-2xl mb-4"> 01 Choose your Platform</div>
-          <div className="orders flex justify-center bg-white rounded-lg p-12 ">
+          <div className="orders flex justify-center bg-white rounded-lg p-12 dark:bg-primary_dark_bg ">
             <div className="order w-32 text-center mx-6 flex flex-col items-center">
               <div className="order-header-name-icon mb-2">
                 <img src={MetaLogo} alt="facebook-logo" />
               </div>
-              <div className="order-header-name-text mb-8 text-base font-semibold">
+              <div className="order-header-name-text mb-8 text-base font-semibold dark:text-white">
                 Meta
               </div>
               <button
                 onClick={() => handleNewOrderButton("Meta")}
-                className="order-button  hover:scale-110 hover:backgroud_light_red transition ease-in-out bg-main_red text-white px-2 py-1 rounded cursor-pointer w-32 text-xl"
+                className="order-button  hover:scale-110 hover:backgroud_light_red transition ease-in-out bg-main_red dark:bg-red-800 text-white px-2 py-1 rounded cursor-pointer w-32 text-xl"
               >
                 Order
               </button>
@@ -99,12 +141,12 @@ function NewOrder() {
               <div className="order-header-name-icon mb-2">
                 <img src={tiktokLogo} alt="tiktok" />
               </div>
-              <div className="order-header-name-text mb-8 font-semibold">
+              <div className="order-header-name-text mb-8 font-semibold dark:text-white">
                 TikTok
               </div>
               <button
                 onClick={() => handleNewOrderButton("tiktok")}
-                className="order-button  hover:scale-110 hover:backgroud_light_red transition ease-in-out bg-main_red text-white px-2 py-1 rounded cursor-pointer w-32 text-xl"
+                className="order-button  hover:scale-110 hover:backgroud_light_red transition ease-in-out bg-main_red dark:bg-red-800 text-white px-2 py-1 rounded cursor-pointer w-32 text-xl"
               >
                 Order
               </button>
@@ -114,12 +156,12 @@ function NewOrder() {
               <div className="order-header-name-icon mb-2">
                 <img src={GoogleLogo} alt="Google" />
               </div>
-              <div className="order-header-name-text mb-8 font-semibold">
+              <div className="order-header-name-text mb-8 font-semibold dark:text-white">
                 Google
               </div>
               <button
                 onClick={() => handleNewOrderButton("google")}
-                className="order-button  hover:scale-110 hover:backgroud_light_red transition ease-in-out bg-main_red text-white px-2 py-1 rounded cursor-pointer w-32 text-xl"
+                className="order-button  hover:scale-110 hover:backgroud_light_red transition ease-in-out bg-main_red dark:bg-red-800 text-white px-2 py-1 rounded cursor-pointer w-32 text-xl"
               >
                 Order
               </button>
@@ -128,12 +170,12 @@ function NewOrder() {
               <div className="order-header-name-icon mb-2">
                 <img src={SnapchatLogo} alt="snapchat" />
               </div>
-              <div className="order-header-name-text mb-8 font-semibold">
+              <div className="order-header-name-text mb-8 font-semibold dark:text-white">
                 snapchat
               </div>
               <button
                 onClick={() => handleNewOrderButton("snapchat")}
-                className="order-button  hover:scale-110 hover:backgroud_light_red transition ease-in-out bg-main_red text-white px-2 py-1 rounded cursor-pointer w-32 text-xl"
+                className="order-button  hover:scale-110 hover:backgroud_light_red transition ease-in-out bg-main_red dark:bg-red-800 text-white px-2 py-1 rounded cursor-pointer w-32 text-xl"
               >
                 Order
               </button>
@@ -142,13 +184,13 @@ function NewOrder() {
         </section>
       )}
       {FormStep === 1 && (
-        <div className="orders flex justify-center bg-white rounded-lg p-12 ">
+        <div className="orders flex justify-center bg-white dark:bg-primary_dark_bg rounded-lg p-12 ">
           <section>
-            <div className="text-2xl font-semibold mt-4">
+            <div className="text-2xl font-semibold mt-4 dark:text-white">
               {" "}
               Enter your informations
             </div>
-            <p className="mt-1 text-sm leading-6 text-gray-600 mb-4">
+            <p className="mt-1 text-sm leading-6 text-gray-600 mb-4 dark:text-gray-300">
               Use a permanent address where you can receive mail.
             </p>
             <Input
@@ -158,6 +200,7 @@ function NewOrder() {
               type="text"
               value={formData.businessName}
               onChange={handleInputChange}
+              error={errors.businessName}
             />
             <Input
               label="Contact name"
@@ -166,6 +209,7 @@ function NewOrder() {
               type="text"
               value={formData.contactName}
               onChange={handleInputChange}
+              error={errors.contactName}
             />
             <Input
               label="Email"
@@ -174,12 +218,13 @@ function NewOrder() {
               type="email"
               value={formData.contactEmail}
               onChange={handleInputChange}
+              error={errors.contactEmail}
             />
           </section>
         </div>
       )}{" "}
       {FormStep === 2 && (
-        <div className=" flex justify-center bg-white rounded-lg p-12">
+        <div className=" flex justify-center bg-white rounded-lg p-8 dark:bg-primary_dark_bg">
           {" "}
           <section>
             <div className="text-2xl font-semibold ">Your Budget</div>
@@ -223,6 +268,9 @@ function NewOrder() {
         </div>
       )}
       {FormStep === 3 && (
+        <OrderSummary formData={formData} NextStep={PreviousStep} />
+      )}
+      {FormStep === 4 && (
         <div className=" flex justify-center bg-white rounded-lg p-12">
           email: {formData.contactEmail}
           <br />
@@ -240,8 +288,8 @@ function NewOrder() {
           Platform : {formData.platform}
         </div>
       )}
-      {FormStep !== 0 && (
-        <div className="flex justify-center mt-8 ">
+      {FormStep !== 0 && FormStep !== 3 && (
+        <div className="flex justify-center mt-4 ">
           <button
             onClick={PreviousStep}
             className="order-button bg-white hover:bg-main_red text-red-500 hover:text-white font-semibold py-2  px-8 border border-gray-200 rounded shadow  mr-4"
@@ -252,7 +300,7 @@ function NewOrder() {
             onClick={NextStep}
             className="order-button  bg-white hover:bg-main_red text-red-500 hover:text-white font-semibold py-2 px-8 border border-gray-200 rounded shadow "
           >
-            {FormStep === 3 ? "Submit" : "Next"}
+            Next
           </button>
         </div>
       )}

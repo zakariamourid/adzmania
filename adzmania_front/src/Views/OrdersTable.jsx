@@ -62,13 +62,13 @@ function OrdersTable() {
   };
 
   return (
-    <div className=" bg-white p-4 rounded-md orders-section mt-12">
+    <div className=" bg-white  dark:bg-primary_dark_bg p-4 rounded-md orders-section  ">
       <div className="flex flex-col">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
             <div className="overflow-hidden">
-              <table className="min-w-full">
-                <thead className="bg-white border-b">
+              <table className="min-w-full ">
+                <thead className="bg-white border-b dark:bg-primary_dark_bg dark:text-white">
                   <tr>
                     <th
                       scope="col"
@@ -107,28 +107,28 @@ function OrdersTable() {
                     <tr
                       className={
                         index % 2 === 0
-                          ? "bg-red-50  border-b"
-                          : " bg-white border-b"
+                          ? "bg-red-50   dark:bg-primary_dark_bg "
+                          : " bg-white    dark:bg-dark_cards"
                       }
                       key={order.order_id}
                     >
-                      <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900  font-bold">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm dark:text-white  text-gray-900  font-bold">
                         {order.order_id}
                       </td>
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap flex items-center">
+                      <td className="text-sm text-gray-900 dark:text-white font-light px-6 py-4 whitespace-nowrap flex items-center">
                         <img
                           src={logoLinks[order.product.toLowerCase()]}
                           className="w-6 h6 mr-3"
                         />
                         <span>{order.product}</span>
                       </td>
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                      <td className="text-sm text-gray-900 dark:text-white font-light px-6 py-4 whitespace-nowrap">
                         {order.date}
                       </td>
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                      <td className="text-sm text-gray-900 dark:text-white font-light px-6 py-4 whitespace-nowrap">
                         {order.amount}
                       </td>
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap ">
+                      <td className="text-sm text-gray-900 dark:text-white font-light px-6 py-4 whitespace-nowrap ">
                         <span
                           className={`${
                             statusColors[order.status.toLowerCase()].bgColor

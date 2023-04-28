@@ -10,9 +10,9 @@ function DefaultLayout() {
   const { user, token } = useStateContext(ContextProvider);
   if (!token) return <Navigate to="/login" />;
   return (
-    <div className="defaultLayout">
+    <div className="defaultLayout h-full">
       <SideBar />
-      <div className="home-section">
+      <div className="home-section dark:bg-black h-full">
         <TopBar />
         <Outlet />
       </div>

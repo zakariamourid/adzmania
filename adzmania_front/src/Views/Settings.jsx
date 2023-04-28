@@ -3,20 +3,21 @@ import {
   ContextProvider,
   useStateContext,
 } from "../Contexts/contextProvider.jsx";
+// import eye icon from heroicons
+import { EyeIcon } from "@heroicons/react/24/outline";
 function Settings() {
   const { user } = useStateContext(ContextProvider);
   return (
     <div className="container p-10">
-      <div className="text-2xl font-bold">Account Settings</div>
-
-      <div className="mt-8 bg-white rounded-lg px-12 py-4">
+      <div className="text-3xl font-bold mb-8 ">Account Settings</div>
+      <div className=" bg-white rounded-lg px-12 py-4">
         <div className="mt-8">
           <div className="text-xl font-semibold">Account Information</div>
         </div>
-        <div className="mt-4">
+        <div className="mt-4 w-full">
           <form className="w-full max-w-lg">
             <div className="flex flex-wrap -mx-3 mb-6">
-              <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <div className="w-full md:w-1/2  px-3 mb-6 md:mb-0">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                   for="grid-first-name"
@@ -80,12 +81,18 @@ function Settings() {
                 >
                   old Password
                 </label>
-                <input
-                  className="appearance-none block w-full bg-gray-200 border-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                  id="grid-first-name"
-                  type="text"
-                  placeholder="****************"
-                />
+                <div className="relative">
+                  {" "}
+                  <input
+                    className="appearance-none block w-full bg-gray-200 border-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                    id="grid-first-name"
+                    type="password"
+                    placeholder="****************"
+                  />
+                  <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                    <EyeIcon className="h-6 w-6 text-gray-700" />
+                  </div>
+                </div>
               </div>
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label
@@ -97,7 +104,7 @@ function Settings() {
                 <input
                   className="appearance-none block w-full border-gray-200 bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                   id="grid-first-name"
-                  type="text"
+                  type="password"
                   placeholder="****************"
                 />
               </div>
