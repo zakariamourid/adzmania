@@ -20,13 +20,13 @@ function Settings() {
               <div className="w-full md:w-1/2  px-3 mb-6 md:mb-0">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  for="grid-first-name"
+                  htmlFor="first_name"
                 >
                   First Name
                 </label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                  id="grid-first-name"
+                  id="first_name"
                   type="text"
                   value={user.name}
                 />
@@ -34,13 +34,13 @@ function Settings() {
               <div className="w-full md:w-1/2 px-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  for="grid-last-name"
+                  htmlFor="last_name"
                 >
                   Last Name
                 </label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="grid-last-name"
+                  id="last_name"
                   type="text"
                   value={user.lastName}
                 />
@@ -54,30 +54,33 @@ function Settings() {
                 </label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="grid-last-email"
+                  id="email"
                   type="email"
-                  disabled
-                  value={user.email}
+                  readOnly
+                  defaultValue={user.email}
                 />
               </div>
-              <div className="w-full md:w-1/2 px-3 mb-6">
+              <div className="w-full md:w-1/2 px-3 mb-6" id="phone">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  for="grid-last-email"
+                  htmlFor="phone"
                 >
                   Phone Number
                 </label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="grid-last-phone"
+                  id="phone"
                   type="tel"
                   value={user.phone}
                 />
               </div>
-              <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <div
+                className="w-full md:w-1/2 px-3 mb-6 md:mb-0"
+                id="old_password"
+              >
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  for="grid-first-name"
+                  htmlFor="old_password"
                 >
                   old Password
                 </label>
@@ -85,11 +88,11 @@ function Settings() {
                   {" "}
                   <input
                     className="appearance-none block w-full bg-gray-200 border-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                    id="grid-first-name"
+                    id="old_password"
                     type="password"
                     placeholder="****************"
                   />
-                  <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                  <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
                     <EyeIcon className="h-6 w-6 text-gray-700" />
                   </div>
                 </div>
@@ -97,13 +100,13 @@ function Settings() {
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  for="grid-first-name"
+                  htmlFor="new_password"
                 >
                   New Password
                 </label>
                 <input
                   className="appearance-none block w-full border-gray-200 bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                  id="grid-first-name"
+                  id="new_password"
                   type="password"
                   placeholder="****************"
                 />

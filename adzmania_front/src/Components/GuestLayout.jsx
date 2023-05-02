@@ -10,11 +10,8 @@ function GuestLayout() {
   if (token) return <Navigate to="/dashboard" />;
 
   return (
-    <div className="bg-green-500 text-black">
-      GuestLayout
-      <div className="bg-green-300">
-        <Outlet />
-      </div>
+    <div className="">
+      <Outlet />
     </div>
   );
 }

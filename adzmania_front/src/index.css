@@ -37,7 +37,6 @@ input::-webkit-inner-spin-button {
 .home-section {
   position: relative;
   background: #f3f3f3;
-
   height: 100vh;
   overflow-y: scroll;
   left: 260px;

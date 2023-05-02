@@ -1,11 +1,20 @@
 import React from "react";
 
-function Input({ label, type, placeholder, value, onChange, name, error }) {
+function Input({
+  label,
+  type,
+  placeholder,
+  value,
+  onChange,
+  onBlur,
+  name,
+  error,
+}) {
   return (
     <div className="sm:col-span-3">
       <label
         htmlFor={name}
-        className={`block text-sm font-medium text-gray-700 dark:text-white ${
+        className={`block text-sm mb-2 capitalize font-medium text-gray-700 dark:text-white ${
           error ? "text-red-500" : ""
         }`}
       >
@@ -13,7 +22,7 @@ function Input({ label, type, placeholder, value, onChange, name, error }) {
       </label>
       <div className="">
         <input
-          required
+          onBlur={onBlur}
           type={type}
           name={name}
           id={name}
@@ -31,7 +40,7 @@ function Input({ label, type, placeholder, value, onChange, name, error }) {
             className="ml-2 text-sm text-red-500 dark:text-red-800"
             id={`${name}-error`}
           >
-            please fill this field
+            {typeof error === "boolean" ? "This field is required" : error}
           </p>
         )}
       </div>

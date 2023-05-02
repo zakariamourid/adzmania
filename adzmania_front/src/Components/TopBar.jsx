@@ -20,7 +20,7 @@ function TopBar() {
 
   const { user } = useStateContext(ContextProvider);
   return (
-    <div className="top-bar dark:bg-dark_cards">
+    <div className="top-bar  dark:bg-primary_dark_bg">
       <div>
         <img src={LogoCenter} className="w-40 h-24" alt="" />
       </div>

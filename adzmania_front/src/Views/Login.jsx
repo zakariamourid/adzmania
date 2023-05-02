@@ -1,66 +1,134 @@
-import React, { useState } from "react";
-// import {
-//   ContextProvider,
-//   useStateContext,
-// } from "../Contexts/contextProvider.jsx";
-// import Navigate from "react-router-dom";
-function Login() {
-  // const { token, setToken } = useStateContext(ContextProvider);
-  // const { user, setUser } = useStateContext(ContextProvider);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const handleUsername = (e) => {
-    setUsername(e.target.value);
+import React from "react";
+import adzmaina from "../assets/logoCenter.png";
+import Input from "./order-form/Input";
+import { axiosClient } from "../axios";
+import {
+  ContextProvider,
+  useStateContext,
+} from "../Contexts/contextProvider.jsx";
+export default function Login() {
+  const { setToken, setUser } = useStateContext(ContextProvider);
+  const [isInvalid, setIsInvalid] = React.useState(false);
+  const [formData, setFormData] = React.useState({
+    email: "",
+    password: "",
+  });
+  const [errors, setErrors] = React.useState({
+    email: false,
+    password: false,
+  });
+  const handleChange = (e) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value.toLowerCase(),
+    }));
   };
-  const handlePassword = (e) => {
-    setPassword(e.target.value);
+  const handleBlur = (e) => {
+    if (!e.target.value) {
+      setErrors((prev) => ({ ...prev, [e.target.name]: true }));
+    } else {
+      setErrors((prev) => ({ ...prev, [e.target.name]: false }));
+    }
   };
-  const handleSubmit = () => {
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
-  };
-  // TODO: add a check to see if the user is already logged in
+  const submitLogin = async (e) => {
+    e.preventDefault();
+    setIsInvalid(false);
 
-  // if (token) return <Navigate to="/dashboard" />;
+    // check if the form is valid
+    const { email, password } = formData;
+    if (!email || !password) {
+      setErrors({
+        email: !email,
+        password: !password,
+      });
+      return;
+    }
+    // email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email.match(emailRegex)) {
+      // check if the email matches the regular expression
+      setErrors((prev) => ({
+        ...prev,
+        email: "make sure your email is correct",
+      }));
+      return;
+    }
+
+    try {
+      const res = await axiosClient.post("login", formData);
+      console.log(res.data);
+      setToken(res.data.token);
+      setUser((prev) => ({
+        ...prev,
+        name: res.data.user.name,
+        email: res.data.user.email,
+      }));
+    } catch (error) {
+      setIsInvalid(true);
+      console.log(error);
+    }
+  };
+
   return (
-    <div className="container    flex ">
-      <div className="form p-12 text-center">
-        {username}
-        <div className="form-group m-4">
-          <label htmlFor="username">username</label>
-          <input
-            type="text"
-            name="username"
-            id="username"
-            onChange={handleUsername}
-            value={username}
+    <>
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8  ">
+        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+          <img
+            className="mx-auto h-30 w-auto"
+            src={adzmaina}
+            alt="Your Company"
           />
         </div>
-        <div className="form-group m-4">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            onChange={handlePassword}
-            value={password}
-          />
-        </div>
-        <div className="form-group">
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              handleSubmit();
-            }}
-            type="submit"
-            className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-          >
-            Login
-          </button>
+
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+          <form className="space-y-6" onSubmit={submitLogin}>
+            <div className="mt-2">
+              <Input
+                id="email"
+                name="email"
+                error={errors.email}
+                value={formData.email}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                type="text"
+                label="Email address"
+                autoComplete="email"
+              />
+            </div>
+
+            <div className="mt-2">
+              <Input
+                id="password"
+                name="password"
+                value={formData.password}
+                error={errors.password}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                type="password"
+                label={"password"}
+                autoComplete="password"
+              />
+            </div>
+            {isInvalid && (
+              <div
+                class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                role="alert"
+              >
+                <span class="font-medium">Incorrect email or password</span>
+              </div>
+            )}
+
+            <div>
+              <button
+                type="submit"
+                className="flex w-full justify-center rounded-md bg-red-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                Login
+              </button>
+            </div>
+          </form>
         </div>
       </div>
-    </div>
+    </>
   );
 }
-
-export default Login;

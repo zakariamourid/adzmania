@@ -15,19 +15,19 @@ function OrderSummary({ formData, NextStep }) {
         </div>
 
         <ul role="list" className="space-y-5 my-7">
-          <li className="flex justify-between">
+          <li className="flex justify-between dark:text-white">
             {formData.budget}{" "}
             <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-              solde {formData.platform}
+              Solde {formData.platform}
             </span>
           </li>
-          <li className="flex justify-between">
+          <li className="flex justify-between dark:text-white">
             {Math.round(formData.budget * 0.1)}
             <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
               comission 10%{" "}
             </span>
           </li>
-          <li className="flex justify-between">
+          <li className="flex justify-between dark:text-white">
             {formData.paymentMethod}
             <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
               Payment method

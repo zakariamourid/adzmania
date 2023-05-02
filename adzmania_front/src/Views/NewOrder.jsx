@@ -8,7 +8,6 @@ import GoogleLogo from "../assets/Logo/GoogleLogo.svg";
 import SnapchatLogo from "../assets/Logo/snapchatLogo.svg";
 import MetaLogo from "../assets/Logo/metaLogo.svg";
 import CustomListBox from "./order-form/CustomListBox";
-// import { CurrencyInput } from "react-rainbow-components";
 import CihLogo from "./order-form/payment_logo/CihLogo.svg";
 import PaypalLogo from "./order-form/payment_logo/PaypalLogo.svg";
 import PayoneerLogo from "./order-form/payment_logo/PayonnerLogo.svg";
@@ -21,6 +20,7 @@ function NewOrder() {
     businessName: false,
     contactName: false,
     contactEmail: false,
+    customAmount: false,
   });
   console.log("render");
   const amounts = [
@@ -74,7 +74,23 @@ function NewOrder() {
     const { name, value } = e.target;
     setFormData((prevState) => ({ ...prevState, [name]: value }));
   };
-
+  const handleInputBlur = (e) => {
+    const { name, value } = e.target;
+    if (value === "") {
+      setErrors((prevState) => ({ ...prevState, [name]: true }));
+    } else {
+      setErrors((prevState) => ({ ...prevState, [name]: false }));
+    }
+    if (name === "contactEmail") {
+      if (
+        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(formData.contactEmail)
+      ) {
+        setErrors((prevState) => ({ ...prevState, [name]: true }));
+      } else {
+        setErrors((prevState) => ({ ...prevState, [name]: false }));
+      }
+    }
+  };
   const handleNewOrderButton = (platform) => {
     setFormData((prevState) => ({ ...prevState, platform: platform }));
     console.log(platform);
@@ -85,17 +101,29 @@ function NewOrder() {
     if (FormStep === 4) {
       return;
     }
-    if (FormStep === 1) {
+    let hasErorrs = false;
+    if (FormStep === 1 || FormStep === 2 || FormStep === 3) {
       if (formData.businessName === "") {
         setErrors((prevState) => ({ ...prevState, businessName: true }));
-        return;
+        hasErorrs = true;
       }
       if (formData.contactName === "") {
         setErrors((prevState) => ({ ...prevState, contactName: true }));
-        return;
+        hasErorrs = true;
       }
       if (formData.contactEmail === "") {
         setErrors((prevState) => ({ ...prevState, contactEmail: true }));
+        hasErorrs = true;
+      } else if (
+        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(formData.contactEmail)
+      ) {
+        hasErorrs = true;
+      }
+      if (formData.budget === "") {
+        setErrors((prevState) => ({ ...prevState, budget: true }));
+        hasErorrs = true;
+      }
+      if (hasErorrs) {
         return;
       }
       setErrors((prevState) => ({
@@ -197,6 +225,7 @@ function NewOrder() {
               label="Business name"
               placeholder="Business name"
               name="businessName"
+              onBlur={handleInputBlur}
               type="text"
               value={formData.businessName}
               onChange={handleInputChange}
@@ -207,6 +236,7 @@ function NewOrder() {
               name="contactName"
               placeholder="Contact Name"
               type="text"
+              onBlur={handleInputBlur}
               value={formData.contactName}
               onChange={handleInputChange}
               error={errors.contactName}
@@ -218,6 +248,7 @@ function NewOrder() {
               type="email"
               value={formData.contactEmail}
               onChange={handleInputChange}
+              onBlur={handleInputBlur}
               error={errors.contactEmail}
             />
           </section>
@@ -227,14 +258,16 @@ function NewOrder() {
         <div className=" flex justify-center bg-white rounded-lg p-8 dark:bg-primary_dark_bg">
           {" "}
           <section>
-            <div className="text-2xl font-semibold ">Your Budget</div>
-            <p className="mt-1 text-sm leading-6 text-gray-600 mb-4">
+            <div className="text-2xl font-semibold dark:text-white ">
+              Your Budget
+            </div>
+            <p className="mt-1 text-sm leading-6 text-gray-600 mb-4 dark:text-stone-400">
               Select or enter your custom amount and choose your payment option.
             </p>
             <div className="sm:col-span-3">
               <label
                 htmlFor="budget-select"
-                className="block mb-2 text-sm font-medium text-gray-900"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
                 Budget
               </label>
@@ -256,7 +289,9 @@ function NewOrder() {
                   placeholder="custom amount"
                   type="number"
                   value={formData.budget}
+                  onBlur={handleInputBlur}
                   onChange={handleInputChange}
+                  error={errors.customAmount}
                 />
               </div>
             </div>
@@ -270,24 +305,6 @@ function NewOrder() {
       {FormStep === 3 && (
         <OrderSummary formData={formData} NextStep={PreviousStep} />
       )}
-      {FormStep === 4 && (
-        <div className=" flex justify-center bg-white rounded-lg p-12">
-          email: {formData.contactEmail}
-          <br />
-          name: {formData.contactName}
-          <br />
-          business name: {formData.businessName}
-          <br />
-          budget:
-          {selectedAmount.amount === "custom"
-            ? formData.budget
-            : selectedAmount.amount}
-          <br />
-          payment method: {formData.paymentMethod}
-          <br />
-          Platform : {formData.platform}
-        </div>
-      )}
       {FormStep !== 0 && FormStep !== 3 && (
         <div className="flex justify-center mt-4 ">
           <button
@@ -298,7 +315,7 @@ function NewOrder() {
           </button>
           <button
             onClick={NextStep}
-            className="order-button  bg-white hover:bg-main_red text-red-500 hover:text-white font-semibold py-2 px-8 border border-gray-200 rounded shadow "
+            className="order-button disabled:bg-gray-50  disabled:hover:bg-red-300 bg-white hover:bg-main_red text-red-500 hover:text-white font-semibold py-2 px-8 border border-gray-200 rounded shadow "
           >
             Next
           </button>
