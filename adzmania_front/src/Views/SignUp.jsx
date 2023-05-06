@@ -12,11 +12,13 @@ function SignUp() {
     name: "",
     email: "",
     password: "",
+    phone: "",
   });
   const [errors, setErrors] = React.useState({
     name: false,
     email: false,
     password: false,
+    phone: false,
   });
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -30,44 +32,28 @@ function SignUp() {
   };
   const handleSignup = async (e) => {
     e.preventDefault();
-    // check if the form is valid
-    const { name, email, password } = formData;
-    if (!name || !email || !password) {
-      setErrors({
-        name: !name,
-        email: !email,
-        password: !password,
-      });
-      return;
-    }
-    // email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email.match(emailRegex)) {
-      // check if the email matches the regular expression
-      setErrors((prev) => ({
-        ...prev,
-        email: "make sure your email is correct",
-      }));
-      return;
-    }
-
     try {
-      const res = await axiosClient.post("signup", formData);
-      console.log(res.data.user);
-      setUser((prev) => ({
-        ...prev,
-        name: res.data.user.name,
-        email: res.data.user.email,
-      }));
-      setToken(res.data.token);
-    } catch (err) {
-      // Handle the API error and set the error message for each input field
-      const errorFields = Object.keys(err.response.data.errors);
-      const newErrors = {};
-      errorFields.forEach((field) => {
-        newErrors[field] = err.response.data.errors[field][0];
+      const csrf = await axiosClient.get("sanctum/csrf-cookie");
+      const res = await axiosClient.post("/api/signup", {
+        email: formData.email,
+        password: formData.password,
+        name: formData.name,
+        phone: formData.phone,
       });
-      setErrors((prev) => ({ ...prev, ...newErrors }));
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+      if (err.response.status === 422) {
+        setErrors((prev) => ({ ...prev, ...err.response.data.errors }));
+        return;
+      }
+
+      // const errorFields = Object.keys(err.response.data.errors);
+      // const newErrors = {};
+      // errorFields.forEach((field) => {
+      //   newErrors[field] = err.response.data.errors[field][0];
+      // });
+      // setErrors((prev) => ({ ...prev, ...newErrors }));
     }
   };
   return (
@@ -108,6 +94,19 @@ function SignUp() {
                   type="text"
                   label="Email address"
                   autoComplete="email"
+                />
+              </div>
+              <div className="mt-2">
+                <Input
+                  id="phone"
+                  name="phone"
+                  error={errors.phone}
+                  value={formData.phone}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  type="text"
+                  label="Phone Number"
+                  autoComplete="phone"
                 />
               </div>
 

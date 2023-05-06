@@ -324,5 +324,4 @@ function NewOrder() {
     </div>
   );
 }
-
 export default NewOrder;

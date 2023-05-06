@@ -2,12 +2,13 @@ import React from "react";
 import adzmaina from "../assets/logoCenter.png";
 import Input from "./order-form/Input";
 import { axiosClient } from "../axios";
-import {
-  ContextProvider,
-  useStateContext,
-} from "../Contexts/contextProvider.jsx";
+import useAuthContext from "../Contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 export default function Login() {
-  const { setToken, setUser } = useStateContext(ContextProvider);
+  const navigate = useNavigate();
+
+  const { getUser, setUser } = useAuthContext();
+
   const [isInvalid, setIsInvalid] = React.useState(false);
   const [formData, setFormData] = React.useState({
     email: "",
@@ -53,16 +54,21 @@ export default function Login() {
       }));
       return;
     }
-
     try {
-      const res = await axiosClient.post("login", formData);
-      console.log(res.data);
-      setToken(res.data.token);
-      setUser((prev) => ({
-        ...prev,
-        name: res.data.user.name,
-        email: res.data.user.email,
-      }));
+      const csrf = await axiosClient.get("sanctum/csrf-cookie");
+      const res = await axiosClient.post("/api/login", {
+        email: formData.email,
+        password: formData.password,
+      });
+      if (res.status === 200) {
+        console.log(res.data.name);
+        setUser({
+          name: res.data.name,
+          email: res.data.email,
+          phone: res.data.phone,
+        });
+        navigate("/dashboard");
+      }
     } catch (error) {
       setIsInvalid(true);
       console.log(error);
@@ -83,6 +89,7 @@ export default function Login() {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form className="space-y-6" onSubmit={submitLogin}>
             <div className="mt-2">
+              <button onClick={getUser}> get user </button>
               <Input
                 id="email"
                 name="email"
@@ -111,10 +118,10 @@ export default function Login() {
             </div>
             {isInvalid && (
               <div
-                class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
                 role="alert"
               >
-                <span class="font-medium">Incorrect email or password</span>
+                <span className="font-medium">Incorrect email or password</span>
               </div>
             )}
 

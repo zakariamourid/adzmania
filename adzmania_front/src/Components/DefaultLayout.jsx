@@ -7,8 +7,8 @@ import {
 import SideBar from "./SideBar.jsx";
 import TopBar from "./TopBar.jsx";
 function DefaultLayout() {
-  const { user, token } = useStateContext(ContextProvider);
-  if (!token) return <Navigate to="/login" />;
+  // const { token } = useStateContext(ContextProvider);
+  // if (!token) return <Navigate to="/login" />;
   return (
     <div className="defaultLayout h-full">
       <SideBar />
