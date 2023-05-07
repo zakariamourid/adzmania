@@ -1,16 +1,8 @@
-import { useState, useContext, createContext } from "react";
-const StateContext = createContext({
-  user: null,
-  token: null,
-  setUser: () => {},
-  setToken: () => {},
-});
+import { useState, useContext, createContext, useEffect } from "react";
+import { axiosClient } from "../axios";
+const StateContext = createContext();
 export const ContextProvider = ({ children }) => {
-  const [user, setUser] = useState({
-    name: "",
-    email: "",
-    phone: "",
-  }); // mock name
+  const [user, setUser] = useState(null);
   const [token, _setToken] = useState(localStorage.getItem("ACCESS_TOKEN")); //TODO: remember to make this get data from session
   const setToken = (token) => {
     _setToken(token);
@@ -20,6 +12,24 @@ export const ContextProvider = ({ children }) => {
       localStorage.removeItem("ACCESS_TOKEN");
     }
   };
+  useEffect(() => {
+    const getUserData = async () => {
+      console.log("fetching the user ...");
+
+      try {
+        const res = await axiosClient.get("/api/user", {
+          headers: {
+            Authorization: `Bearer {${token}}`,
+          },
+        });
+        setUser(res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getUserData();
+  }, [token]);
+
   return (
     <StateContext.Provider
       value={{

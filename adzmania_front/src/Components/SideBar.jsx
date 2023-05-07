@@ -10,10 +10,10 @@ import { Link, useLocation } from "react-router-dom";
 
 const SideBar = () => {
   const location = useLocation();
+
   const isActive = (path) => location.pathname === path;
   const handleLogout = () => {
-    localStorage.removeItem("ACCESS_TOKEN");
-    window.location.reload();
+    console.log("logout");
   };
 
   return (

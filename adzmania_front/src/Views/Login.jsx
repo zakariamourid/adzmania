@@ -1,13 +1,17 @@
 import React from "react";
+import { useEffect } from "react";
 import adzmaina from "../assets/logoCenter.png";
 import Input from "./order-form/Input";
 import { axiosClient } from "../axios";
-import useAuthContext from "../Contexts/AuthContext";
+import { useStateContext } from "../Contexts/contextProvider.jsx";
 import { useNavigate } from "react-router-dom";
 export default function Login() {
   const navigate = useNavigate();
 
-  const { getUser, setUser } = useAuthContext();
+  const { setUser, user, setToken, token } = useStateContext();
+  // useEffect(() => {
+  //   setUser({ name: "mohamed", email: "zak@gmao.c", phone: "123456789" });
+  // }, []);
 
   const [isInvalid, setIsInvalid] = React.useState(false);
   const [formData, setFormData] = React.useState({
@@ -33,7 +37,7 @@ export default function Login() {
   };
   const submitLogin = async (e) => {
     e.preventDefault();
-    setIsInvalid(false);
+    // setIsInvalid(false);
 
     // check if the form is valid
     const { email, password } = formData;
@@ -54,25 +58,17 @@ export default function Login() {
       }));
       return;
     }
-    try {
-      const csrf = await axiosClient.get("sanctum/csrf-cookie");
-      const res = await axiosClient.post("/api/login", {
-        email: formData.email,
-        password: formData.password,
-      });
-      if (res.status === 200) {
-        console.log(res.data.name);
-        setUser({
-          name: res.data.name,
-          email: res.data.email,
-          phone: res.data.phone,
-        });
-        navigate("/dashboard");
-      }
-    } catch (error) {
-      setIsInvalid(true);
-      console.log(error);
-    }
+
+    const res = await axiosClient.post("/api/login", {
+      email: formData.email,
+      password: formData.password,
+    });
+    console.log(res);
+    setUser(res.data.user);
+    setToken(res.data.token);
+    console.log("token : ", res.data.token);
+    navigate("/dashboard");
+    // setUser(res.data);
   };
 
   return (
@@ -89,7 +85,8 @@ export default function Login() {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form className="space-y-6" onSubmit={submitLogin}>
             <div className="mt-2">
-              <button onClick={getUser}> get user </button>
+              <p> user :{JSON.stringify(user, null, 2)} </p>
+              <p> token :{JSON.stringify(token, null, 2)} </p>
               <Input
                 id="email"
                 name="email"

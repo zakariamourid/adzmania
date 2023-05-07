@@ -5,13 +5,10 @@ import "./index.css";
 import { RouterProvider } from "react-router-dom";
 import router from "./router.jsx";
 import { ContextProvider } from "./Contexts/contextProvider";
-import { AuthProvider } from "./Contexts/AuthContext";
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    {/* <ContextProvider> */}
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
-    {/* </ContextProvider> */}
-  </React.StrictMode>
+  // <React.StrictMode>
+  <ContextProvider>
+    <RouterProvider router={router} />
+  </ContextProvider>
+  // {/* </React.StrictMode> */}
 );

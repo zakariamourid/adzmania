@@ -8,6 +8,7 @@ import LogoCenter from "../assets/logoCenter.png";
 import DropDownMenu from "./DropDownMenu.jsx";
 import { SunIcon } from "@heroicons/react/20/solid";
 import { MoonIcon } from "@heroicons/react/20/solid";
+import { Navigate } from "react-router-dom";
 
 function TopBar() {
   const handleUserIconClick = () => {
@@ -18,7 +19,9 @@ function TopBar() {
     document.documentElement.className = theme;
   }, [theme]);
 
-  const { user } = useStateContext(ContextProvider);
+  const { user } = useStateContext();
+  const content = user ? user.name : <div>loading ...</div>;
+
   return (
     <div className="top-bar  dark:bg-primary_dark_bg">
       <div>
@@ -41,7 +44,7 @@ function TopBar() {
             )}
           </div>
           <span className="ml-4">Hey,</span>{" "}
-          <span className=" font-bold dark:text-white">{user.name}</span>
+          <span className=" font-bold dark:text-white">{content}</span>
         </div>
         <div className="drop-down-menu">
           <DropDownMenu />

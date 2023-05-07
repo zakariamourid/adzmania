@@ -6,7 +6,14 @@ import {
 // import eye icon from heroicons
 import { EyeIcon } from "@heroicons/react/24/outline";
 function Settings() {
-  const { user } = useStateContext(ContextProvider);
+  const { user } = useStateContext();
+
+  const user2 = {
+    name: "John Doe",
+    lastName: "Doe",
+    email: "",
+    phone: "",
+  };
   return (
     <div className="container p-10">
       <div className="text-3xl font-bold mb-8 ">Account Settings</div>

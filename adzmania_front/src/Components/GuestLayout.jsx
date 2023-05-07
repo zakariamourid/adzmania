@@ -6,9 +6,8 @@ import {
 } from "../Contexts/contextProvider.jsx";
 import { Navigate } from "react-router-dom";
 function GuestLayout() {
-  const { token } = useStateContext(ContextProvider);
+  const { token } = useStateContext();
   if (token) return <Navigate to="/dashboard" />;
-
   return (
     <div className="">
       <Outlet />
