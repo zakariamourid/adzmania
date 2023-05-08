@@ -70,7 +70,7 @@ input::-webkit-inner-spin-button {
 }
 
 .nav-link a:hover {
-  background: #ff0031;
+  background: #ef2f1d;
   color: #fff;
 }
 .logout-link a:hover {
@@ -81,7 +81,7 @@ input::-webkit-inner-spin-button {
 .active-link,
 .active-link a {
   color: #ff0031;
-  background: #da4040;
+  background: #ef2f1d;
   color: #fff;
 }
 

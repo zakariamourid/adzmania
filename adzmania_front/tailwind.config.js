@@ -6,7 +6,7 @@ module.exports = {
     extend: {
       colors: {
         tb: "#000000",
-        main_red: "#FF0031",
+        main_red: "#EF2F1D",
         second_red: "#DA4040",
         backgroud_light_red: "#ff0031",
         st_delivered_text: "#1F9254",
@@ -17,6 +17,8 @@ module.exports = {
         st_pending_bg: "#FEF8E5",
         dark_cards: "#7B6969",
         primary_dark_bg: "#403636",
+        adzmania_red: "#EF2F1D",
+        // logo_color:242 47 29;
       },
     },
   },

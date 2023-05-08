@@ -8,13 +8,17 @@ import { EyeIcon } from "@heroicons/react/24/outline";
 function Settings() {
   const { user } = useStateContext();
 
-  const user2 = {
-    name: "John Doe",
-    lastName: "Doe",
-    email: "",
-    phone: "",
-  };
-  return (
+  return !user ? (
+    <div className="container p-10">
+      <div className="text-3xl font-bold mb-8 ">Account Settings</div>
+      <div className=" bg-white rounded-lg px-12 py-4">
+        <div className="mt-8">
+          <div className="text-xl font-semibold">Account Information</div>
+        </div>
+        <div className="mt-4 w-full">"fetching the data."</div>
+      </div>
+    </div>
+  ) : (
     <div className="container p-10">
       <div className="text-3xl font-bold mb-8 ">Account Settings</div>
       <div className=" bg-white rounded-lg px-12 py-4">

@@ -12,19 +12,40 @@ export const ContextProvider = ({ children }) => {
       localStorage.removeItem("ACCESS_TOKEN");
     }
   };
+  const logout = async () => {
+    try {
+      await axiosClient.post(
+        "/api/logout",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setToken(null);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     const getUserData = async () => {
       console.log("fetching the user ...");
-
-      try {
-        const res = await axiosClient.get("/api/user", {
-          headers: {
-            Authorization: `Bearer {${token}}`,
-          },
-        });
-        setUser(res.data);
-      } catch (error) {
-        console.error(error);
+      if (token) {
+        try {
+          const res = await axiosClient.get("/api/user", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          setUser(res.data);
+        } catch (error) {
+          if (error.response.status === 401) {
+            setToken(null);
+          }
+          console.error("error", error);
+        }
       }
     };
     getUserData();
@@ -37,6 +58,7 @@ export const ContextProvider = ({ children }) => {
         token,
         setUser,
         setToken,
+        logout,
       }}
     >
       {children}

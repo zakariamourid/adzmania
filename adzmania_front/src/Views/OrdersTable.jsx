@@ -93,7 +93,7 @@ function OrdersTable() {
                       className="text-sm  font-bold  px-6 py-4 text-left"
                     >
                       Amount
-                    </th>{" "}
+                    </th>
                     <th
                       scope="col"
                       className="text-sm font-bold  px-6 py-4 text-left"

@@ -7,8 +7,10 @@ import TopBar from "./TopBar.jsx";
 function DefaultLayout() {
   // const { token } = useStateContext();
   const { token } = useStateContext();
+
   // if (user.name === "") return <Navigate to="/login" />;
   // if (!user) return <Navigate to="/dashboard" />;
+  // create a loading overlay
   if (!token) return <Navigate to="/login" />;
   return (
     <div className="defaultLayout h-full">

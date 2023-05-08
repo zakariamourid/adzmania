@@ -2,12 +2,9 @@ import React from "react";
 import adzmania from "../assets/logoCenter.png";
 import Input from "./order-form/Input";
 import { axiosClient } from "../axios";
-import {
-  ContextProvider,
-  useStateContext,
-} from "../Contexts/contextProvider.jsx";
+import { useStateContext } from "../Contexts/contextProvider.jsx";
 function SignUp() {
-  const { setToken, setUser } = useStateContext(ContextProvider);
+  const { setToken, setUser } = useStateContext();
   const [formData, setFormData] = React.useState({
     name: "",
     email: "",
@@ -33,14 +30,17 @@ function SignUp() {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      const csrf = await axiosClient.get("sanctum/csrf-cookie");
       const res = await axiosClient.post("/api/signup", {
         email: formData.email,
         password: formData.password,
         name: formData.name,
         phone: formData.phone,
       });
-      console.log(res);
+      if (res.status === 200) {
+        setToken(res.data.token);
+        setUser(res.data.user);
+      }
+      console.log(res.data);
     } catch (err) {
       console.log(err);
       if (err.response.status === 422) {

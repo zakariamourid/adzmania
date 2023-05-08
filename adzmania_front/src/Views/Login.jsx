@@ -67,7 +67,7 @@ export default function Login() {
     setUser(res.data.user);
     setToken(res.data.token);
     console.log("token : ", res.data.token);
-    navigate("/dashboard");
+
     // setUser(res.data);
   };
 

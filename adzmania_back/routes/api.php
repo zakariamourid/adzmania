@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TestController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         ]
     );
 });
+
+Route::middleware('auth:sanctum')->get('/orders',[OrderController::class,'orders']);
+Route::middleware('auth:sanctum')->delete('/order',[OrderController::class,'destroy']);
+Route::middleware('auth:sanctum')->post('/orders',[OrderController::class,'store']);
 Route::post("login", [AuthController::class, 'login']);
 Route::post("signup", [AuthController::class, 'signup']);
 Route::post("logout", [AuthController::class, 'logout']);
