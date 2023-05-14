@@ -21,16 +21,19 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return (
         [
-            'name' => $request->user()->name,
+            'firstName' => $request->user()->first_name,
+            'lastName' => $request->user()->last_name,
             'email' => $request->user()->email,
             'phone' => $request->user()->phone,
         ]
     );
 });
 
-Route::middleware('auth:sanctum')->get('/orders',[OrderController::class,'orders']);
-Route::middleware('auth:sanctum')->delete('/order',[OrderController::class,'destroy']);
-Route::middleware('auth:sanctum')->post('/orders',[OrderController::class,'store']);
+// Route::middleware('auth:sanctum')->get('/orders',[OrderController::class,'orders']);
+// Route::middleware('auth:sanctum')->delete('/order',[OrderController::class,'destroy']);
+// Route::middleware('auth:sanctum')->post('/orders',[OrderController::class,'store']);
+// order apiresource protefted by sanctum
+Route::apiResource('orders', OrderController::class)->middleware('auth:sanctum');
 Route::post("login", [AuthController::class, 'login']);
 Route::post("signup", [AuthController::class, 'signup']);
 Route::post("logout", [AuthController::class, 'logout']);

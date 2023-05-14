@@ -11,20 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orders', function (Blueprint $table) {
+         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('product');
+            $table->enum('product', ['tiktok', 'google', 'meta', 'snapchat']);
             $table->string('price');
-            $table->foreignId('user_id')->constrained();
-            $table->string('status')->default('pending');
-            $table->string('payment_method')->default('cih');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->enum('status', ['pending', 'process', 'delivered', 'cancelled'])->nullable(false)->default('pending');
+            $table->enum('payment_method', ['cih', 'paypal', 'wise', 'stripe'])->nullable(false);
             $table->string("business_name");
             $table->string("contact_name");
             $table->string('email');
             $table->timestamps();
+            
+            
 
         });
-        
     }
 
     /**

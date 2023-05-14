@@ -5,7 +5,19 @@ import { ClockIcon } from "@heroicons/react/24/outline";
 import { ArrowPathRoundedSquareIcon } from "@heroicons/react/24/outline";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
+import { useStateContext } from "../Contexts/contextProvider.jsx";
 function cards() {
+  const { orders } = useStateContext();
+  const pendingOrders = orders.filter(
+    (order) => order.status === "pending"
+  ).length;
+  const deliveredOrders = orders.filter(
+    (order) => order.status === "delivered"
+  ).length;
+  const processOrders = orders.filter(
+    (order) => order.status === "process"
+  ).length;
+
   return (
     <div className="cards-section">
       <div className="section-header">
@@ -25,7 +37,7 @@ function cards() {
             <h2 className="card-header-name dark:text-white">All Orders</h2>
           </div>
           <div className="card-body">
-            <p className="card-body-text dark:text-white">5</p>
+            <p className="card-body-text dark:text-white">{orders.length}</p>
             <div className="card-icon">
               <ArchiveBoxIcon className="w-12 h-10" />
             </div>
@@ -36,7 +48,7 @@ function cards() {
             <h2 className="card-header-name dark:text-white">Pending</h2>
           </div>
           <div className="card-body">
-            <p className="card-body-tex dark:text-white">1</p>
+            <p className="card-body-tex dark:text-white">{pendingOrders}</p>
             <div className="card-icon">
               <ClockIcon className="w-12 h-10" />
             </div>
@@ -47,7 +59,7 @@ function cards() {
             <h2 className="card-header-name dark:text-white">Process</h2>
           </div>
           <div className="card-body">
-            <p className="card-body-text dark:text-white">2</p>
+            <p className="card-body-text dark:text-white">{processOrders}</p>
             <div className="card-icon">
               <ArrowPathRoundedSquareIcon className="w-12 h-10" />
             </div>
@@ -58,7 +70,7 @@ function cards() {
             <h2 className="card-header-name dark:text-white">Completed</h2>
           </div>
           <div className="card-body">
-            <p className="card-body-text dark:text-white">2</p>
+            <p className="card-body-text dark:text-white">{deliveredOrders}</p>
             <div className="card-icon">
               <CheckCircleIcon className="w-12 h-10" />
             </div>

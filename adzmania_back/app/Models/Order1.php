@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
-      protected $fillable = [
+    protected $fillable = [
         'product',
         'status',
         'price',
@@ -16,6 +16,5 @@ class Order extends Model
         'business_name',
         'contact_name',
         'email',
-        'payment_method',
     ];
 }

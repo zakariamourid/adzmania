@@ -14,7 +14,7 @@ export default function CustomListBox({
           <Listbox.Button className="relative w-full cursor-default rounded-lg dark:text-white bg-white dark:bg-black py-2 pl-3 pr-10 text-left  border border-gray-300 dark:border-gray-700 sm:text-sm">
             <span className="block truncate">
               {selectedAmount.amount}
-              {selectedAmount.amount === "custom" ? "" : "$"}
+              {selectedAmount.amount === "custom" ? "" : "Dh"}
             </span>
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
               <ChevronUpDownIcon
@@ -50,7 +50,7 @@ export default function CustomListBox({
                         }`}
                       >
                         {person.amount}
-                        {person.amount === "custom" ? null : "$"}
+                        {person.amount === "custom" ? null : "Dh"}
                       </span>
                       {selectedAmount ? (
                         <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-red-600 dark:text-red-400">

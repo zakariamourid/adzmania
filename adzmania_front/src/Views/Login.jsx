@@ -59,14 +59,24 @@ export default function Login() {
       return;
     }
 
-    const res = await axiosClient.post("/api/login", {
-      email: formData.email,
-      password: formData.password,
-    });
-    console.log(res);
-    setUser(res.data.user);
-    setToken(res.data.token);
-    console.log("token : ", res.data.token);
+    // const res = await axiosClient.post("/api/login", {
+    //   email: formData.email,
+    //   password: formData.password,
+    // });
+    try {
+      const res = await axiosClient.post("/api/login", {
+        email: formData.email,
+        password: formData.password,
+      });
+      console.log(res);
+      setUser(res.data.user);
+      setToken(res.data.token);
+      console.log("token : ", res.data.token);
+    } catch (error) {
+      console.error("error.message : ", error.response.data.message);
+      setIsInvalid(true);
+      return;
+    }
 
     // setUser(res.data);
   };

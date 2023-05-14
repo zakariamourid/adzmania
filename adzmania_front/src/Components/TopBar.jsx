@@ -1,9 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import {
-  ContextProvider,
-  useStateContext,
-} from "../Contexts/contextProvider.jsx";
+import { useStateContext } from "../Contexts/contextProvider.jsx";
 import LogoCenter from "../assets/logoCenter.png";
 import DropDownMenu from "./DropDownMenu.jsx";
 import { SunIcon } from "@heroicons/react/20/solid";
@@ -20,7 +17,14 @@ function TopBar() {
   }, [theme]);
 
   const { user } = useStateContext();
-  const content = user ? user.name : <div>loading ...</div>;
+  const [content, setContent] = useState("");
+  useEffect(() => {
+    if (user) {
+      setContent(user.firstName);
+    } else {
+      setContent("Guest");
+    }
+  }, [user]);
 
   return (
     <div className="top-bar  dark:bg-primary_dark_bg">
@@ -29,7 +33,7 @@ function TopBar() {
       </div>
       <div className="flex align-center ">
         <div className=" inline-flex items-center  mr-2">
-          <div className=" border border-white  dark:border-dark_cards  dark:hover:border-black hover:border-gray-300 p-2 rounded-lg cursor-pointer">
+          <div className=" border border-white  dark:border-dark_cards dark:border-bg-primary_dark_bg dark:hover:border-black hover:border-gray-300 p-2 rounded-lg cursor-pointer">
             {" "}
             {theme === "light" ? (
               <SunIcon
@@ -38,7 +42,7 @@ function TopBar() {
               />
             ) : (
               <MoonIcon
-                className="w-6 h-6 text-white dark:hover:text-black"
+                className="w-6 h-6 text-white dark:hover:text-black "
                 onClick={() => setTheme("light")}
               />
             )}

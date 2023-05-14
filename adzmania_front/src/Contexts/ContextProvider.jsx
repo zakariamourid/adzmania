@@ -3,6 +3,7 @@ import { axiosClient } from "../axios";
 const StateContext = createContext();
 export const ContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [orders, setOrders] = useState([]);
   const [token, _setToken] = useState(localStorage.getItem("ACCESS_TOKEN")); //TODO: remember to make this get data from session
   const setToken = (token) => {
     _setToken(token);
@@ -39,6 +40,13 @@ export const ContextProvider = ({ children }) => {
               Authorization: `Bearer ${token}`,
             },
           });
+          const orders = await axiosClient.get("/api/orders", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          setOrders(orders.data.data);
+
           setUser(res.data);
         } catch (error) {
           if (error.response.status === 401) {
@@ -59,6 +67,7 @@ export const ContextProvider = ({ children }) => {
         setUser,
         setToken,
         logout,
+        orders,
       }}
     >
       {children}

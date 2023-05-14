@@ -6,13 +6,15 @@ import { useStateContext } from "../Contexts/contextProvider.jsx";
 function SignUp() {
   const { setToken, setUser } = useStateContext();
   const [formData, setFormData] = React.useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
     phone: "",
   });
   const [errors, setErrors] = React.useState({
-    name: false,
+    firstName: false,
+    lastName: false,
     email: false,
     password: false,
     phone: false,
@@ -33,7 +35,8 @@ function SignUp() {
       const res = await axiosClient.post("/api/signup", {
         email: formData.email,
         password: formData.password,
-        name: formData.name,
+        first_name: formData.firstName,
+        last_name: formData.lastName,
         phone: formData.phone,
       });
       if (res.status === 200) {
@@ -72,14 +75,27 @@ function SignUp() {
             <div>
               <div className="mt-2 ">
                 <Input
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  error={errors.name}
+                  id="firstName"
+                  name="firstName"
+                  value={formData.firstName}
+                  error={errors.firstName}
                   onBlur={handleBlur}
                   onChange={handleChange}
                   type="text"
-                  label={"name"}
+                  label={"first name"}
+                  autoComplete="name"
+                />
+              </div>
+              <div className="mt-2 ">
+                <Input
+                  id="lastName"
+                  name="lastName"
+                  value={formData.lastName}
+                  error={errors.lastName}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  type="text"
+                  label={"last name"}
                   autoComplete="name"
                 />
               </div>

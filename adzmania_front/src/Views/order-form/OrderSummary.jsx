@@ -1,6 +1,6 @@
 import React from "react";
 
-function OrderSummary({ formData, NextStep }) {
+function OrderSummary({ formData, handleConfirmOrder }) {
   return (
     <div className=" flex justify-center">
       <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
@@ -8,10 +8,10 @@ function OrderSummary({ formData, NextStep }) {
           Last Step
         </h5>
         <div className="flex items-baseline text-gray-900 dark:text-white">
-          <span className="text-3xl font-semibold">$</span>
           <span className="text-5xl font-extrabold tracking-tight">
             {Math.round(formData.budget * 1.1)}
           </span>
+          <span className="text-3xl font-semibold">dh</span>
         </div>
 
         <ul role="list" className="space-y-5 my-7">
@@ -36,7 +36,7 @@ function OrderSummary({ formData, NextStep }) {
         </ul>
         <button
           type="button"
-          onClick={NextStep}
+          onClick={handleConfirmOrder}
           className="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex justify-center w-full text-center"
         >
           Confirm Order

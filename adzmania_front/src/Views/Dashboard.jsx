@@ -1,7 +1,7 @@
 import React from "react";
 import "../index.css";
 import Cards from "./cards";
-import OrdersTable from "./OrdersTable";
+import OrdersTable from "./OrderTables1";
 function Dashboard() {
   return (
     <div className="container p-10">

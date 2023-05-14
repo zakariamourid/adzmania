@@ -28,7 +28,8 @@ class AuthController extends Controller
         return response([
             'user' => [
                 "email"=> $user->email,
-                "name"=> $user->name,
+                "firstName"=> $user->first_name,
+                "lastName"=> $user->last_name,
                 "phone"=> $user->phone,
             ],
                 'token' => $token,
@@ -38,7 +39,8 @@ class AuthController extends Controller
     {
        try{ $credentials=$request->validate(
             [
-                'name' => ['required'],
+                'first_name' => ['required'],
+                'last_name' => ['required'],
                 'email' => ['required', 'email', 'unique:users'],
                 'password' => ['required','min:8'],
                 'phone' => ['required','min:10','unique:users'],
@@ -50,11 +52,13 @@ class AuthController extends Controller
 
             // handle if request is not valid
            $user= User::create([
-                'name' => $credentials['name'],
+                'first_name' => $credentials['first_name'],
+                'last_name' => $credentials['last_name'],
                 'email' => $credentials['email'],
                 'phone' => $credentials['phone'], 
                 'password' => bcrypt($credentials['password']),
             ]);
+        
             
             
             return response([

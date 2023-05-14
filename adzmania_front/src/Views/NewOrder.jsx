@@ -14,8 +14,30 @@ import PayoneerLogo from "./order-form/payment_logo/PayonnerLogo.svg";
 import WiseLogo from "./order-form/payment_logo/WiseLogo.svg";
 import PaymentMethods from "./order-form/PaymentMethods";
 import OrderSummary from "./order-form/OrderSummary";
+import { axiosClient } from "../axios";
+import { useStateContext } from "../Contexts/contextProvider.jsx";
 
 function NewOrder() {
+  const { token } = useStateContext();
+  const handleConfirmOrder = async () => {
+    const res = await axiosClient.post(
+      "/api/orders",
+      {
+        product: formData.product,
+        price: formData.budget,
+        business_name: formData.businessName,
+        contact_name: formData.contactName,
+        payment_method: formData.paymentMethod,
+        email: formData.email,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(res);
+  };
   const [errors, setErrors] = useState({
     businessName: false,
     contactName: false,
@@ -67,7 +89,7 @@ function NewOrder() {
     contactName: "",
     contactEmail: "",
     budget: "10",
-    platform: "",
+    product: "",
     paymentMethod: "Cih",
   });
   const handleInputChange = (e) => {
@@ -91,9 +113,9 @@ function NewOrder() {
       }
     }
   };
-  const handleNewOrderButton = (platform) => {
-    setFormData((prevState) => ({ ...prevState, platform: platform }));
-    console.log(platform);
+  const handleNewOrderButton = (product) => {
+    setFormData((prevState) => ({ ...prevState, product: product }));
+    console.log(product);
     setFormStep(FormStep + 1);
   };
   const [FormStep, setFormStep] = useState(0);
@@ -149,7 +171,10 @@ function NewOrder() {
       {FormStep === 0 && (
         <section>
           {" "}
-          <div className="text-2xl mb-4"> 01 Choose your Platform</div>
+          <div className="text-2xl mb-4 dark:text-white">
+            {" "}
+            01 Choose your platform
+          </div>
           <div className="orders flex justify-center bg-white rounded-lg p-12 dark:bg-primary_dark_bg ">
             <div className="order w-32 text-center mx-6 flex flex-col items-center">
               <div className="order-header-name-icon mb-2">
@@ -303,7 +328,10 @@ function NewOrder() {
         </div>
       )}
       {FormStep === 3 && (
-        <OrderSummary formData={formData} NextStep={PreviousStep} />
+        <OrderSummary
+          formData={formData}
+          handleConfirmOrder={handleConfirmOrder}
+        />
       )}
       {FormStep !== 0 && FormStep !== 3 && (
         <div className="flex justify-center mt-4 ">

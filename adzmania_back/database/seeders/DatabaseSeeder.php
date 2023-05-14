@@ -15,7 +15,8 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         \App\Models\User::factory()->create([
-            'name' => 'admin',
+            'first_name' => 'admin',
+            'last_name' => 'admin',
             'email' => 'zakariamourid10@gmail.com',
             'password' => bcrypt('12345678'),
             'phone' => '0666666666',
@@ -38,7 +39,7 @@ class DatabaseSeeder extends Seeder
             'product' => 'meta',
             'price' => '100',
             'user_id' => 
-            \App\Models\User::where('name', 'admin')->first()->id
+            \App\Models\User::where('first_name', 'admin')->first()->id
             ,
             'status' => 'pending',
             'payment_method' => 'cih',
