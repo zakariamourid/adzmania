@@ -27,35 +27,39 @@ export const ContextProvider = ({ children }) => {
       setToken(null);
     } catch (error) {
       console.error(error);
+      setToken(null);
     }
   };
-
-  useEffect(() => {
-    const getUserData = async () => {
-      console.log("fetching the user ...");
-      if (token) {
-        try {
-          const res = await axiosClient.get("/api/user", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          const orders = await axiosClient.get("/api/orders", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          setOrders(orders.data.data);
-
-          setUser(res.data);
-        } catch (error) {
-          if (error.response.status === 401) {
-            setToken(null);
-          }
-          console.error("error", error);
-        }
+  const getOrders = async (role) => {
+    let path = "api/orders";
+    if (role == "admin") {
+      path = "api/admin/orders";
+    }
+    const orders = await axiosClient.get(path, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    setOrders(orders.data.data);
+  };
+  const getUserData = async () => {
+    console.log("fetching the user ...");
+    if (token) {
+      try {
+        const res = await axiosClient.get("/api/user", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setUser(res.data);
+        getOrders(res.data.role);
+      } catch (error) {
+        setToken(null);
+        console.error("error", error);
       }
-    };
+    }
+  };
+  useEffect(() => {
     getUserData();
   }, [token]);
 
@@ -68,6 +72,7 @@ export const ContextProvider = ({ children }) => {
         setToken,
         logout,
         orders,
+        getOrders,
       }}
     >
       {children}

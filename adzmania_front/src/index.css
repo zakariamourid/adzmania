@@ -98,6 +98,7 @@ input::-webkit-inner-spin-button {
 
 .cards {
   display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 

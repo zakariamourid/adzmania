@@ -1,15 +1,15 @@
 import React from "react";
 import { useState } from "react";
-import Logo from "../assets/logo-adzmania.svg";
+import Logo from "../../assets/logo-adzmania.svg";
 import { HomeIcon } from "@heroicons/react/24/outline";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import { Cog8ToothIcon } from "@heroicons/react/24/outline";
 import { ArrowLeftOnRectangleIcon } from "@heroicons/react/24/outline";
 import { Link, useLocation } from "react-router-dom";
-import { useStateContext } from "../Contexts/contextProvider";
+import { useStateContext } from "../../Contexts/contextProvider";
 
-const SideBar = () => {
+const AdminSideBar = () => {
   const location = useLocation();
   // const { logout } = useStateContext();
   const isActive = (path) => location.pathname === path;
@@ -30,31 +30,32 @@ const SideBar = () => {
       </div>
       <ul className="nav-links text-black">
         <li
-          className={`nav-link ${isActive("/dashboard") ? "active-link" : ""}`}
+          className={`nav-link ${
+            isActive("/dashboard-admin") ? "active-link" : ""
+          }`}
         >
-          <Link to="/dashboard">
+          <Link to="/dashboard-admin">
             <HomeIcon className="h-6 w-6 " />
             <span className="links_name ">Dashboard</span>
           </Link>
         </li>
+
         <li
-          className={`nav-link ${isActive("/new-order") ? "active-link" : ""}`}
+          className={`nav-link ${
+            isActive("/orders-admin") ? "active-link" : ""
+          }`}
         >
-          <Link to="/new-order">
-            <PlusIcon className="h-6 w-6" />
-            <span className="links_name">New Order</span>
-          </Link>
-        </li>
-        <li className={`nav-link ${isActive("/orders") ? "active-link" : ""}`}>
-          <Link to="/orders">
+          <Link to="/orders-admin">
             <ShoppingCartIcon className="h-6 w-6" />
             <span className="links_name">Orders</span>
           </Link>
         </li>
         <li
-          className={`nav-link ${isActive("/settings") ? "active-link" : ""}`}
+          className={`nav-link ${
+            isActive("/settings-admin") ? "active-link" : ""
+          }`}
         >
-          <Link to="/settings">
+          <Link to="/settings-admin">
             <Cog8ToothIcon className="h-6 w-6" />
             <span className="links_name">Settings</span>
           </Link>
@@ -70,4 +71,4 @@ const SideBar = () => {
   );
 };
 
-export default SideBar;
+export default AdminSideBar;

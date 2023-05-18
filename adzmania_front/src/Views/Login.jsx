@@ -4,7 +4,7 @@ import adzmaina from "../assets/logoCenter.png";
 import Input from "./order-form/Input";
 import { axiosClient } from "../axios";
 import { useStateContext } from "../Contexts/contextProvider.jsx";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 export default function Login() {
   const navigate = useNavigate();
 
@@ -95,8 +95,6 @@ export default function Login() {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form className="space-y-6" onSubmit={submitLogin}>
             <div className="mt-2">
-              <p> user :{JSON.stringify(user, null, 2)} </p>
-              <p> token :{JSON.stringify(token, null, 2)} </p>
               <Input
                 id="email"
                 name="email"
@@ -141,6 +139,11 @@ export default function Login() {
               </button>
             </div>
           </form>
+          <Link to={"/signup"}>
+            <div className="text-center font-bold mt-2 cursor-pointer">
+              Sign up
+            </div>
+          </Link>
         </div>
       </div>
     </>

@@ -42,6 +42,7 @@ function SignUp() {
       if (res.status === 200) {
         setToken(res.data.token);
         setUser(res.data.user);
+        console.log("user", res.data.user);
       }
       console.log(res.data);
     } catch (err) {
@@ -147,7 +148,7 @@ function SignUp() {
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-red-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Login
+                Sign Up
               </button>
             </div>
           </form>

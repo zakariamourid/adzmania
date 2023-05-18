@@ -59,7 +59,7 @@ class AuthController extends Controller
                 'password' => bcrypt($credentials['password']),
             ]);
         
-            
+        
             
             return response([
                 

@@ -3,41 +3,35 @@ import metaLogo from "../assets/Logo/metaLogo.svg";
 import tiktokLogo from "../assets/Logo/tiktokLogo.svg";
 import GoogleLogo from "../assets/Logo/GoogleLogo.svg";
 import SnapchatLogo from "../assets/Logo/snapchatLogo.svg";
-import { useTable, useSortBy, useFilters } from "react-table";
-import { getOrders, statusColors } from "./Data";
+import {
+  useTable,
+  useSortBy,
+  useGlobalFilter,
+  usePagination,
+} from "react-table";
+import { statusColors } from "./Data";
 import { useStateContext } from "../Contexts/contextProvider.jsx";
 import GlobalFiltering from "./GlobalFiltering";
 import { format } from "date-fns";
+import { ca } from "date-fns/locale";
 
 const OrdersTable = () => {
-  const { orders } = useStateContext();
-  // const [orders, setOrders] = useState([]);
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     try {
-  //       const ordersData = await getOrders();
-  //       setOrders(ordersData);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
+  const { orders, user } = useStateContext();
 
-  //   fetchData();
-  // }, []);
-  // if (!orders || orders.length === 0) {
-  //   return <div>Loading...</div>;
-  // }
   const logoLinks = {
     meta: metaLogo,
     tiktok: tiktokLogo,
     google: GoogleLogo,
     snapchat: SnapchatLogo,
   };
-  const columns = React.useMemo(
-    () => [
+  const columns = React.useMemo(() => {
+    const columnsArray = [
       {
         Header: "Order id",
         accessor: "id",
+        Cell: ({ value }) => (
+          <span className="text-st_blue font-bold">#{value}</span>
+        ),
       },
       {
         Header: "Product",
@@ -78,20 +72,81 @@ const OrdersTable = () => {
           </span>
         ),
       },
-    ],
-    []
+    ];
+    if (user && user.role === "admin") {
+      columnsArray.push({ Header: "user", accessor: "user_id" });
+      columnsArray.push({ Header: "phone", accessor: "phone" });
+      columnsArray.push({
+        id: "edit",
+        Header: "edit",
+        Cell: ({ row }) => (
+          <button
+            className="bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-md disabled:bg-gray-50 disabled:hidden"
+            onClick={() => alert(row.original.id)}
+          >
+            Edit
+          </button>
+        ),
+      });
+      columnsArray.push({
+        id: "view",
+        Header: "view",
+        Cell: ({ row }) => (
+          <button
+            className="bg-white  hover:bg-red-600 text-red-400 hover:text-white border-red-600 border px-3 py-1.5 rounded-md disabled:bg-gray-50 disabled:hidden"
+            onClick={() => alert(row.original.id)}
+          >
+            View
+          </button>
+        ),
+      });
+    }
+    return columnsArray;
+  }, [user]);
+
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    page,
+    nextPage,
+    previousPage,
+    canNextPage,
+    canPreviousPage,
+    pageOptions,
+    gotoPage,
+    state,
+    initialState,
+    prepareRow,
+    setGlobalFilter,
+  } = useTable(
+    {
+      columns,
+      data: orders,
+      defaultSortBy: [{ id: "Date", desc: false }],
+    },
+    useGlobalFilter,
+    useSortBy,
+    usePagination
   );
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data: orders }, useSortBy);
+  const { pageIndex } = state;
+  const { globalFilter } = state;
+  const handleFilterChange = (e) => {
+    const value = e.target.value || "";
+    setGlobalFilter(value.toLowerCase()); // Convert the value to lowercase for case-insensitive matching
+  };
 
   return (
     <div className=" bg-white p-4 rounded-md  dark:bg-primary_dark_bg">
       <div className="flex flex-col">
-        <GlobalFiltering />
+        <GlobalFiltering
+          handleFilterChange={handleFilterChange}
+          globalFilter={globalFilter}
+        />
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-            <div className="overflow-hidden">
+            <div className="">
               <table {...getTableProps()} className="min-w-full">
                 <thead className="bg-white border-b dark:bg-primary_dark_bg dark:text-white">
                   {headerGroups.map((headerGroup) => (
@@ -117,7 +172,7 @@ const OrdersTable = () => {
                   ))}
                 </thead>
                 {/* add conditon if there is no orders */}
-                {rows.length === 0 && (
+                {page.length === 0 && (
                   <tbody>
                     <tr>
                       <td
@@ -131,7 +186,7 @@ const OrdersTable = () => {
                 )}
                 {/* add conditon if there is no orders */}
                 <tbody {...getTableBodyProps()}>
-                  {rows.map((row) => {
+                  {page.map((row) => {
                     prepareRow(row);
                     return (
                       <tr
@@ -155,6 +210,43 @@ const OrdersTable = () => {
                   })}
                 </tbody>
               </table>
+              <div className="text-center mt-3">
+                <div className="">
+                  <button
+                    className="bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-md mr-2 disabled:bg-gray-50 disabled:hidden"
+                    onClick={() => previousPage()}
+                    disabled={!canPreviousPage}
+                  >
+                    Previous
+                  </button>
+                  <span className="text-sm text-gray-900 dark:text-white">
+                    <strong>
+                      {pageOptions.map((page) => (
+                        <span
+                          key={page}
+                          className={`cursor-pointer p-3 py-2 mx-2 border rounded-md border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-slate-600 ${
+                            pageIndex === page
+                              ? " bg-main_red text-white hover:bg-red-100"
+                              : ""
+                          } `}
+                          onClick={() => {
+                            gotoPage(page);
+                          }}
+                        >
+                          {page + 1}
+                        </span>
+                      ))}
+                    </strong>{" "}
+                  </span>
+                  <button
+                    className="bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-md disabled:bg-gray-50 disabled:hidden"
+                    onClick={() => nextPage()}
+                    disabled={!canNextPage}
+                  >
+                    Next
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

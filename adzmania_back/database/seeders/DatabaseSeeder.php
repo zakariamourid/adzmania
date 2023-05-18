@@ -14,32 +14,29 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        \App\Models\User::factory()->create([
-            'first_name' => 'admin',
-            'last_name' => 'admin',
+        \App\Models\User::create([
+            'first_name' => 'zakaria',
+            'last_name' => 'mourid',
             'email' => 'zakariamourid10@gmail.com',
             'password' => bcrypt('12345678'),
             'phone' => '0666666666',
         ]);
-        // create an order 
-        //   Schema::create('orders', function (Blueprint $table) {
-        //     $table->id();
-        //     $table->string('product');
-        //     $table->string('price');
-        //     $table->foreignId('user_id')->constrained();
-        //     $table->string('status')->default('pending');
-        //     $table->string('payment_method')->default('cih');
-        //     $table->string("business_name");
-        //     $table->string("contact_name");
-        //     $table->string('email');
-        //     $table->timestamps();
+           \App\Models\User::create([
+            'first_name' => 'admin',
+            'last_name' => 'admin',
+            'role'=>'admin',
+            'email' => 'adminzakaria@gmail.com',
+            'password' => bcrypt('12345678'),
+            'phone' => '0663054819',
+        ]);
 
+ 
         // });
         \App\Models\Order::create([
             'product' => 'meta',
             'price' => '100',
             'user_id' => 
-            \App\Models\User::where('first_name', 'admin')->first()->id
+            \App\Models\User::where('first_name', 'zakaria')->first()->id
             ,
             'status' => 'pending',
             'payment_method' => 'cih',

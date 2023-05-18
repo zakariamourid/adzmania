@@ -7,12 +7,14 @@ import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import { Cog8ToothIcon } from "@heroicons/react/24/outline";
 import { ArrowLeftOnRectangleIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
+import { useStateContext } from "../Contexts/contextProvider";
 
 export default function DropDownMenu() {
   const handleLogout = () => {
     localStorage.removeItem("ACCESS_TOKEN");
     window.location.reload();
   };
+  const { user } = useStateContext();
   return (
     <Menu as="div" className="relative inline-block text-left z-50">
       <div>
@@ -34,7 +36,11 @@ export default function DropDownMenu() {
             <Menu.Item>
               {({ active }) => (
                 <Link
-                  to="/dashboard"
+                  to={
+                    user && user.role === "admin"
+                      ? "/dashboard-admin"
+                      : "/dashboard"
+                  }
                   className={`dark:text-white ${
                     active ? "bg-main_red text-white" : "text-gray-900"
                   } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
@@ -49,28 +55,32 @@ export default function DropDownMenu() {
                 </Link>
               )}
             </Menu.Item>
+            {user && user.role === "admin" ? null : (
+              <Menu.Item>
+                {({ active }) => (
+                  <Link
+                    to="/new-order"
+                    className={`dark:text-white ${
+                      active ? "bg-main_red text-white" : "text-gray-900"
+                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                  >
+                    <PlusIcon
+                      className={` ${
+                        active ? "text-white" : "text-main_red"
+                      } mr-2 h-5 w-5`}
+                      aria-hidden="true"
+                    />
+                    New Order
+                  </Link>
+                )}
+              </Menu.Item>
+            )}
             <Menu.Item>
               {({ active }) => (
                 <Link
-                  to="/new-order"
-                  className={`dark:text-white ${
-                    active ? "bg-main_red text-white" : "text-gray-900"
-                  } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                >
-                  <PlusIcon
-                    className={` ${
-                      active ? "text-white" : "text-main_red"
-                    } mr-2 h-5 w-5`}
-                    aria-hidden="true"
-                  />
-                  New Order
-                </Link>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <Link
-                  to="/orders"
+                  to={
+                    user && user.role === "admin" ? "/orders-admin" : "/orders"
+                  }
                   className={`dark:text-white ${
                     active ? "bg-main_red text-white" : "text-gray-900"
                   } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
@@ -88,7 +98,11 @@ export default function DropDownMenu() {
             <Menu.Item>
               {({ active }) => (
                 <Link
-                  to="/settings"
+                  to={
+                    user && user.role === "admin"
+                      ? "/settings-admin"
+                      : "/settings"
+                  }
                   className={` dark:text-white ${
                     active ? "bg-main_red text-white" : "text-gray-900"
                   } group flex w-full items-center rounded-md px-2 py-2 text-sm`}

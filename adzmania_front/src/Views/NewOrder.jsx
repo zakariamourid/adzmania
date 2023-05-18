@@ -13,30 +13,52 @@ import PaypalLogo from "./order-form/payment_logo/PaypalLogo.svg";
 import PayoneerLogo from "./order-form/payment_logo/PayonnerLogo.svg";
 import WiseLogo from "./order-form/payment_logo/WiseLogo.svg";
 import PaymentMethods from "./order-form/PaymentMethods";
+import { useNavigate } from "react-router-dom";
 import OrderSummary from "./order-form/OrderSummary";
 import { axiosClient } from "../axios";
 import { useStateContext } from "../Contexts/contextProvider.jsx";
+import { ToastContainer, toast } from "react-toastify";
+import { tr } from "date-fns/locale";
 
 function NewOrder() {
-  const { token } = useStateContext();
+  const notify = () =>
+    toast.success("order has been successfully submitted", {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  const navigate = useNavigate();
+  const { token, getOrders } = useStateContext();
   const handleConfirmOrder = async () => {
-    const res = await axiosClient.post(
-      "/api/orders",
-      {
-        product: formData.product,
-        price: formData.budget,
-        business_name: formData.businessName,
-        contact_name: formData.contactName,
-        payment_method: formData.paymentMethod,
-        email: formData.email,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
+    try {
+      const res = await axiosClient.post(
+        "/api/orders",
+        {
+          product: formData.product,
+          price: formData.budget,
+          business_name: formData.businessName,
+          contact_name: formData.contactName,
+          payment_method: formData.paymentMethod,
+          email: formData.email,
         },
-      }
-    );
-    console.log(res);
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(res);
+      getOrders();
+      notify();
+      navigate("/orders");
+    } catch (error) {
+      console.log(error);
+    }
   };
   const [errors, setErrors] = useState({
     businessName: false,
@@ -175,12 +197,12 @@ function NewOrder() {
             {" "}
             01 Choose your platform
           </div>
-          <div className="orders flex justify-center bg-white rounded-lg p-12 dark:bg-primary_dark_bg ">
+          <div className="orders flex-row lg:flex  justify-evenly bg-white rounded-lg p-12 dark:bg-primary_dark_bg align-center ">
             <div className="order w-32 text-center mx-6 flex flex-col items-center">
               <div className="order-header-name-icon mb-2">
                 <img src={MetaLogo} alt="facebook-logo" />
               </div>
-              <div className="order-header-name-text mb-8 text-base font-semibold dark:text-white">
+              <div className="order-header-name-text mb-8 text-base font-semibold dark:text-white row-span-1 ">
                 Meta
               </div>
               <button

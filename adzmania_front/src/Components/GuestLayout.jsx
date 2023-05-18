@@ -6,7 +6,8 @@ import {
 } from "../Contexts/contextProvider.jsx";
 import { Navigate } from "react-router-dom";
 function GuestLayout() {
-  const { token } = useStateContext();
+  const { token, user } = useStateContext();
+  if (user && user.role == "admin") return <Navigate to="/dashboard-admin" />;
   if (token) return <Navigate to="/dashboard" />;
   return (
     <div className="">

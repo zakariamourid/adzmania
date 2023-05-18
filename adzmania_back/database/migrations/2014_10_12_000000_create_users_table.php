@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('first_name')->nullable(false);
             $table->string('last_name')->nullable(false);
             $table->string('email')->unique();
+            // add user role
+            $table->string("role")->default('user');
             $table->string('phone');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

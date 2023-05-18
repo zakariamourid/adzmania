@@ -18,42 +18,12 @@ class OrderController extends Controller
     {
        $user = Auth::user();
         $orders=Order::where('user_id',$user->id)->paginate();
-        //  get the count of orders that their status is pending
-        $pendingOrdersCount = Order::where('user_id', $user->id)->where('status', 'pending')->count();
-        //  get the count of orders that their status is delivered
-        $deliveredOrdersCount = Order::where('user_id', $user->id)->where('status', 'delivered')->count();
-        //  get the count of orders that their status is canceled
-        $processOrdersCount = Order::where('user_id', $user->id)->where('status', 'process')->count();
-       
-    //    $orders = Order::select('id as order_id','product','payment_method as payment_mode','status','price as amount','user_id','created_at')
-    //             ->where('user_id', $user->id)
-    //             ->get()->map(function ($order) {
-    //                 $order->created_at = $order->created_at->format('d/m/Y');
-    //                 return $order;
-    //             });
-
-    //         return response()->json($orders);
-    // $orderCollection = new OrderCollection($orders);
+ 
     
-return  new OrderCollection($orders); //and add the counts to the response
-// return response()->json([
-//     'data' => new OrderCollection($orders),
-    // 'pendingOrdersCount' => $pendingOrdersCount,
-    // 'deliveredOrdersCount' => $deliveredOrdersCount,
-    // 'processOrdersCount' => $processOrdersCount,
-// ]);
+return  new OrderCollection($orders); 
 
     
     }
-
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         
@@ -97,14 +67,7 @@ return  new OrderCollection($orders); //and add the counts to the response
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Order $order)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
+    
     public function update(Request $request, Order $order)
     {
         //

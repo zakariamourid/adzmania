@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -14,6 +15,7 @@ class OrderResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $phone=User::find($this->user_id)->phone;
         return [
             'id' => $this->id,
             'product' => $this->product,
@@ -21,6 +23,7 @@ class OrderResource extends JsonResource
             'amount' => $this->price,
             'user_id' => $this->user_id,
             'payment_mode' => 'cih',
+            'phone'=>$phone,
             
             // 'business_name' => $this->business_name,
             // 'contact_name' => $this->contact_name,

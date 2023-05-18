@@ -10,6 +10,9 @@ import NotFound from "./Views/NotFound.jsx";
 import Orders from "./Views/Orders.jsx";
 import NewOrder from "./Views/NewOrder.jsx";
 import Settings from "./Views/Settings.jsx";
+import AdminLayout from "./Components/AdminLayout/AdminLayout.jsx";
+import AdminDashboard from "./Components/AdminLayout/adminDashboard.jsx";
+import AdminOrders from "./Components/AdminLayout/AdminOrders.jsx";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +52,32 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <SignUp />,
+      },
+    ],
+  },
+  {
+    path: "/",
+    element: <AdminLayout />,
+    children: [
+      {
+        path: "/",
+        element: <Navigate to="/dashboard-admin" />,
+      },
+      {
+        path: "/dashboard-admin",
+        element: <AdminDashboard />,
+      },
+      {
+        path: "/orders-admin",
+        element: <AdminOrders />,
+      },
+      {
+        path: "/users-admin",
+        element: <h1>admin users</h1>,
+      },
+      {
+        path: "/settings-admin",
+        element: <h1>admin settings</h1>,
       },
     ],
   },

@@ -3,11 +3,16 @@ import { PlusIcon } from "@heroicons/react/24/outline";
 import { ArchiveBoxIcon } from "@heroicons/react/24/outline";
 import { ClockIcon } from "@heroicons/react/24/outline";
 import { ArrowPathRoundedSquareIcon } from "@heroicons/react/24/outline";
+import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import { useStateContext } from "../Contexts/contextProvider.jsx";
+
+import "react-toastify/dist/ReactToastify.css";
+
 function cards() {
-  const { orders } = useStateContext();
+  const { orders, user } = useStateContext();
+
   const pendingOrders = orders.filter(
     (order) => order.status === "pending"
   ).length;
@@ -24,10 +29,16 @@ function cards() {
         <h1 className="dark:text-white text-3xl font-bold">Dashboard</h1>
         <button>
           <Link
-            to="/new-order"
+            to={user && user.role === "admin" ? "/orders-admin" : "/new-order"}
             className="flex justify-between items-center  w-40"
           >
-            <PlusIcon className="w-7 h-7" /> New Order
+            {user && user.role === "admin" ? (
+              <ShoppingCartIcon className="w-6 h-6" />
+            ) : (
+              <PlusIcon className="w-6 h-6" />
+            )}
+            {user && user.role === "admin" ? "All Orders" : "New Order"}
+            {/* </Link> */}
           </Link>
         </button>
       </div>
