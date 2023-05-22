@@ -9,6 +9,8 @@ function Input({
   onBlur,
   name,
   error,
+  readOnly,
+  classes,
 }) {
   return (
     <div className="sm:col-span-3">
@@ -23,6 +25,7 @@ function Input({
       <div className="">
         <input
           onBlur={onBlur}
+          readOnly={!readOnly ? false : true}
           type={type}
           name={name}
           id={name}
@@ -33,7 +36,7 @@ function Input({
             error
               ? "ring-red-500 placeholder-red-300 focus:ring-red-500"
               : "ring-dark placeholder:text-gray-400 focus:ring-grayf-900"
-          } sm:text-sm sm:leading-6`}
+          } sm:text-sm sm:leading-6 ${classes}`}
         />
         {error && (
           <p

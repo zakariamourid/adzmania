@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\AdminOrderController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -34,8 +36,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResource('orders', OrderController::class)->middleware('auth:sanctum');
 Route::middleware(['auth:sanctum', 'role'])->group(function () {
     Route::apiResource('admin/orders', AdminOrderController::class);
+    Route::apiResource('admin/users', AdminUserController::class);
 });
-
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::put('user', [UserController::class,'update']);
+});
 
 Route::post("login", [AuthController::class, 'login']);
 Route::post("signup", [AuthController::class, 'signup']);

@@ -22,11 +22,10 @@ class OrderResource extends JsonResource
             'status' => $this->status,
             'amount' => $this->price,
             'user_id' => $this->user_id,
-            'payment_mode' => 'cih',
+            'payment_mode' => $this->payment_method,
             'phone'=>$phone,
-            
-            // 'business_name' => $this->business_name,
-            // 'contact_name' => $this->contact_name,
+            'business_name' => $this->business_name,
+            'contact_name' => $this->contact_name,
             'email' => $this->email,
             'date' => $this->created_at,
                 //    $orders = Order::select('id as order_id','product','payment_method as payment_mode','status','price as amount','user_id','created_at')

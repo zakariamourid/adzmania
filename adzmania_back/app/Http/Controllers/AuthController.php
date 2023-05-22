@@ -30,6 +30,7 @@ class AuthController extends Controller
                 "email"=> $user->email,
                 "firstName"=> $user->first_name,
                 "lastName"=> $user->last_name,
+                
                 "phone"=> $user->phone,
             ],
                 'token' => $token,
@@ -43,7 +44,7 @@ class AuthController extends Controller
                 'last_name' => ['required'],
                 'email' => ['required', 'email', 'unique:users'],
                 'password' => ['required','min:8'],
-                'phone' => ['required','min:10','unique:users'],
+                'phone' => ['required','min:10','unique:users']
             ]
             );
         }catch (ValidationException $exception) {

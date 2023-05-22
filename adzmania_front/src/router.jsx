@@ -13,6 +13,7 @@ import Settings from "./Views/Settings.jsx";
 import AdminLayout from "./Components/AdminLayout/AdminLayout.jsx";
 import AdminDashboard from "./Components/AdminLayout/adminDashboard.jsx";
 import AdminOrders from "./Components/AdminLayout/AdminOrders.jsx";
+import AdminUsers from "./Components/AdminLayout/AdminUsers.jsx";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
         path: "/signup",
         element: <SignUp />,
       },
+      {
+        path: "/home",
+        element: <App />,
+      },
     ],
   },
   {
@@ -73,11 +78,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/users-admin",
-        element: <h1>admin users</h1>,
+        element: <AdminUsers />,
       },
       {
         path: "/settings-admin",
-        element: <h1>admin settings</h1>,
+        element: <Settings />,
       },
     ],
   },

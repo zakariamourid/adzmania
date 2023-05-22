@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
-import adzmaina from "../assets/logoCenter.png";
-import Input from "./order-form/Input";
+import adzmania from "../assets/logoCenter.png";
+import Input from "../Views/Input";
 import { axiosClient } from "../axios";
 import { useStateContext } from "../Contexts/contextProvider.jsx";
 import { useNavigate, Link } from "react-router-dom";
@@ -83,16 +83,27 @@ export default function Login() {
 
   return (
     <>
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8  ">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img
-            className="mx-auto h-30 w-auto"
-            src={adzmaina}
-            alt="Your Company"
-          />
+      <header className="bg-white shadow-sm">
+        <div className="max-w-8xl mx-auto  px-4 sm:px-6 lg:px-6 flex justify-between">
+          <Link to={"/home"}>
+            <img className=" h-20" src={adzmania} alt="Your Company" />
+          </Link>
+          <div className="flex items-center  ">
+            <Link to={"/signup"}>
+              <div className="text-center font-bold  cursor-pointer text-white bg-main_red border-red-200   px-5 py-2 rounded-2xl">
+                Sign up
+              </div>
+            </Link>
+          </div>
+        </div>
+      </header>
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8  mt-32 ">
+        <div className="sm:mx-auto sm:w-full sm:max-w-sm text-3xl ">
+          Welcome Back to <br />
+          <span className="  text-main_red font-bold text-4xl">Adzmaina</span>
         </div>
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-sm">
           <form className="space-y-6" onSubmit={submitLogin}>
             <div className="mt-2">
               <Input
@@ -139,11 +150,14 @@ export default function Login() {
               </button>
             </div>
           </form>
-          <Link to={"/signup"}>
-            <div className="text-center font-bold mt-2 cursor-pointer">
-              Sign up
-            </div>
-          </Link>
+          <div className="mt-6 text-center">
+            don't have an account ?{" "}
+            <Link to={"/signup"}>
+              <span className="text-red-500 font-bold cursor-pointer">
+                Sign up
+              </span>
+            </Link>
+          </div>
         </div>
       </div>
     </>

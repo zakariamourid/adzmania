@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 // import { useRef, useEffect } from "react";
-import Input from "./order-form/Input";
+import Input from "./Input";
 // import facebookLogo from "../assets/Logo/facebookLogo.svg";
 // import instagramLogo from "../assets/Logo/instagramLogo.svg";
 import tiktokLogo from "../assets/Logo/tiktokLogo.svg";
@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 import OrderSummary from "./order-form/OrderSummary";
 import { axiosClient } from "../axios";
 import { useStateContext } from "../Contexts/contextProvider.jsx";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { tr } from "date-fns/locale";
 
 function NewOrder() {
@@ -35,6 +35,7 @@ function NewOrder() {
   const navigate = useNavigate();
   const { token, getOrders } = useStateContext();
   const handleConfirmOrder = async () => {
+    x;
     try {
       const res = await axiosClient.post(
         "/api/orders",
@@ -43,7 +44,7 @@ function NewOrder() {
           price: formData.budget,
           business_name: formData.businessName,
           contact_name: formData.contactName,
-          payment_method: formData.paymentMethod,
+          payment_method: formData.paymentMethod.toLowerCase(),
           email: formData.email,
         },
         {
@@ -68,11 +69,11 @@ function NewOrder() {
   });
   console.log("render");
   const amounts = [
-    { amount: "10" },
-    { amount: "50" },
     { amount: "100" },
-    { amount: "200" },
     { amount: "500" },
+    { amount: "600" },
+    { amount: "800" },
+    { amount: "1000" },
     { amount: "custom" },
   ];
   const [selectedAmount, setSelectedAmount] = useState(amounts[0]);
@@ -193,9 +194,9 @@ function NewOrder() {
       {FormStep === 0 && (
         <section>
           {" "}
-          <div className="text-2xl mb-4 dark:text-white">
+          <div className="font-bold text-3xl  capitalize mb-4 dark:text-white">
             {" "}
-            01 Choose your platform
+            01-Choose your platform
           </div>
           <div className="orders flex-row lg:flex  justify-evenly bg-white rounded-lg p-12 dark:bg-primary_dark_bg align-center ">
             <div className="order w-32 text-center mx-6 flex flex-col items-center">
@@ -359,13 +360,13 @@ function NewOrder() {
         <div className="flex justify-center mt-4 ">
           <button
             onClick={PreviousStep}
-            className="order-button bg-white hover:bg-main_red text-red-500 hover:text-white font-semibold py-2  px-8 border border-gray-200 rounded shadow  mr-4"
+            className="order-button bg-white dark:bg-white dark:text-main_red dark:border-main_red hover:scale-105 hover:bg-main_red text-red-500 hover:text-white font-semibold py-2  px-8 border border-gray-200 rounded shadow  mr-4"
           >
             Back
           </button>
           <button
             onClick={NextStep}
-            className="order-button disabled:bg-gray-50  disabled:hover:bg-red-300 bg-white hover:bg-main_red text-red-500 hover:text-white font-semibold py-2 px-8 border border-gray-200 rounded shadow "
+            className="order-button dark:bg-main_red dark:text-white dark:border-main_red hover:scale-105 disabled:bg-gray-50  disabled:hover:bg-red-300 bg-white hover:bg-main_red text-red-500 hover:text-white font-semibold py-2 px-8 border border-gray-200 rounded shadow "
           >
             Next
           </button>

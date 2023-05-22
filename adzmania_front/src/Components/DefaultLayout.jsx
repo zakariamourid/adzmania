@@ -12,7 +12,7 @@ function DefaultLayout() {
   // if (user.name === "") return <Navigate to="/login" />;
   // if (!user) return <Navigate to="/dashboard" />;
   // create a loading overlay
-  if (!token) return <Navigate to="/login" />;
+  if (!token) return <Navigate to="/home" />;
   if (user && user.role === "admin") return <Navigate to="/dashboard-admin" />;
 
   return (

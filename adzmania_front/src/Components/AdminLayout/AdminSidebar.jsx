@@ -5,6 +5,7 @@ import { HomeIcon } from "@heroicons/react/24/outline";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import { Cog8ToothIcon } from "@heroicons/react/24/outline";
+import { UsersIcon } from "@heroicons/react/20/solid";
 import { ArrowLeftOnRectangleIcon } from "@heroicons/react/24/outline";
 import { Link, useLocation } from "react-router-dom";
 import { useStateContext } from "../../Contexts/contextProvider";
@@ -52,6 +53,16 @@ const AdminSideBar = () => {
         </li>
         <li
           className={`nav-link ${
+            isActive("/users-admin") ? "active-link" : ""
+          }`}
+        >
+          <Link to="/users-admin">
+            <UsersIcon className="h-6 w-6" />
+            <span className="links_name">Users</span>
+          </Link>
+        </li>
+        <li
+          className={`nav-link ${
             isActive("/settings-admin") ? "active-link" : ""
           }`}
         >
@@ -60,6 +71,8 @@ const AdminSideBar = () => {
             <span className="links_name">Settings</span>
           </Link>
         </li>
+
+        {/* aaaa */}
       </ul>
       <div className="logout-link nav-link ">
         <a onClick={handleLogout} className="cursor-pointer">

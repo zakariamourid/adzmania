@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import metaLogo from "../assets/Logo/metaLogo.svg";
 import tiktokLogo from "../assets/Logo/tiktokLogo.svg";
 import GoogleLogo from "../assets/Logo/GoogleLogo.svg";
+import { axiosClient } from "../axios";
+import { TrashIcon } from "@heroicons/react/24/outline";
 import SnapchatLogo from "../assets/Logo/snapchatLogo.svg";
 import {
   useTable,
@@ -12,10 +14,52 @@ import {
 import { statusColors } from "./Data";
 import { useStateContext } from "../Contexts/contextProvider.jsx";
 import GlobalFiltering from "./GlobalFiltering";
-import { format } from "date-fns";
-import { ca } from "date-fns/locale";
+import { format, set } from "date-fns";
+import { ca, ro } from "date-fns/locale";
+import EditModal from "../Components/AdminLayout/EditModal";
+import DeleteModal from "../Components/AdminLayout/DeleteModal";
 
 const OrdersTable = () => {
+  const { token } = useStateContext();
+  const handleSave = async () => {
+    const updateData = {
+      product: order.product,
+      amount: order.amount,
+      status: order.status,
+      paymnet_mode: order.paymnet_mode,
+    };
+    const res = await axiosClient.put(
+      "/api/admin/orders/" + order.id,
+      {
+        ...updateData,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    if (res.status === 200) {
+      setIsOpen(false);
+      window.location.reload();
+    }
+  };
+  const handleDelete = async (id) => {
+    const res = await axiosClient.delete("/api/admin/orders/" + id, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (res.status === 200) {
+      setIsOpen(false);
+      window.location.reload();
+    }
+  };
+
+  const [order, setOrder] = useState({});
+  const [isOpen, setIsOpen] = useState(false);
+  const [isDeleteModal, setisDeleteModal] = useState(false);
+
   const { orders, user } = useStateContext();
 
   const logoLinks = {
@@ -24,6 +68,7 @@ const OrdersTable = () => {
     google: GoogleLogo,
     snapchat: SnapchatLogo,
   };
+
   const columns = React.useMemo(() => {
     const columnsArray = [
       {
@@ -82,7 +127,10 @@ const OrdersTable = () => {
         Cell: ({ row }) => (
           <button
             className="bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-md disabled:bg-gray-50 disabled:hidden"
-            onClick={() => alert(row.original.id)}
+            onClick={() => {
+              setOrder(row.original);
+              setIsOpen(true);
+            }}
           >
             Edit
           </button>
@@ -94,9 +142,12 @@ const OrdersTable = () => {
         Cell: ({ row }) => (
           <button
             className="bg-white  hover:bg-red-600 text-red-400 hover:text-white border-red-600 border px-3 py-1.5 rounded-md disabled:bg-gray-50 disabled:hidden"
-            onClick={() => alert(row.original.id)}
+            onClick={() => {
+              setOrder(row.original);
+              setisDeleteModal(true);
+            }}
           >
-            View
+            <TrashIcon className="w-5 h-5" />
           </button>
         ),
       });
@@ -143,6 +194,20 @@ const OrdersTable = () => {
         <GlobalFiltering
           handleFilterChange={handleFilterChange}
           globalFilter={globalFilter}
+          selectFilter={true}
+        />
+        <EditModal
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          order={order}
+          setOrder={setOrder}
+          handleSave={handleSave}
+        />
+        <DeleteModal
+          isDeleteModal={isDeleteModal}
+          setisDeleteModal={setisDeleteModal}
+          handleDelete={handleDelete}
+          order={order}
         />
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">

@@ -1,7 +1,8 @@
+import Home from "./homePage/home";
 function App() {
   return (
-    <div className=" text-red-500">
-      <h1>App.jsx landing</h1>
+    <div className="">
+      <Home />
     </div>
   );
 }

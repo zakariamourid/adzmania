@@ -1,8 +1,9 @@
 import React from "react";
 import adzmania from "../assets/logoCenter.png";
-import Input from "./order-form/Input";
+import Input from "./Input";
 import { axiosClient } from "../axios";
 import { useStateContext } from "../Contexts/contextProvider.jsx";
+import { useNavigate, Link } from "react-router-dom";
 function SignUp() {
   const { setToken, setUser } = useStateContext();
   const [formData, setFormData] = React.useState({
@@ -62,43 +63,58 @@ function SignUp() {
   };
   return (
     <>
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8  ">
+      <header className="bg-white shadow-sm">
+        <div className="max-w-8xl mx-auto  px-4 sm:px-6 lg:px-6 flex justify-between">
+          <Link to={"/home"}>
+            <img className=" h-20" src={adzmania} alt="Adzmania" />
+          </Link>
+          <div className="flex items-center">
+            <Link to={"/login"}>
+              <div className="text-center font-bold  cursor-pointer text-white bg-main_red border-red-200   px-5 py-2 rounded-2xl">
+                Login
+              </div>
+            </Link>
+          </div>
+        </div>
+      </header>
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-6 mt-20 lg:px-8  ">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img
-            className="mx-auto h-30 w-auto"
-            src={adzmania}
-            alt="Your Company"
-          />
+          <div className="sm:mx-auto sm:w-full sm:max-w-sm text-3xl ">
+            Welcome Back to <br />
+            <span className="  text-main_red font-bold text-4xl">Adzmaina</span>
+          </div>
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form className="space-y-6" onSubmit={handleSignup}>
             <div>
-              <div className="mt-2 ">
-                <Input
-                  id="firstName"
-                  name="firstName"
-                  value={formData.firstName}
-                  error={errors.firstName}
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  type="text"
-                  label={"first name"}
-                  autoComplete="name"
-                />
-              </div>
-              <div className="mt-2 ">
-                <Input
-                  id="lastName"
-                  name="lastName"
-                  value={formData.lastName}
-                  error={errors.lastName}
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  type="text"
-                  label={"last name"}
-                  autoComplete="name"
-                />
+              <div className="grid grid-cols-2 gap-2">
+                <div className="col-span-1">
+                  <Input
+                    id="firstName"
+                    name="firstName"
+                    value={formData.firstName}
+                    error={errors.firstName}
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    type="text"
+                    label={"First Name"}
+                    autoComplete="name"
+                  />
+                </div>
+                <div className="col-span-1">
+                  <Input
+                    id="lastName"
+                    name="lastName"
+                    value={formData.lastName}
+                    error={errors.lastName}
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    type="text"
+                    label={"Last Name"}
+                    autoComplete="name"
+                  />
+                </div>
               </div>
               <div className="mt-2">
                 <Input
@@ -152,6 +168,14 @@ function SignUp() {
               </button>
             </div>
           </form>
+          <div className="mt-6 text-center">
+            Already have an account?{" "}
+            <Link to={"/login"}>
+              <span className="text-red-500 font-bold cursor-pointer">
+                Login
+              </span>
+            </Link>
+          </div>
         </div>
       </div>
     </>

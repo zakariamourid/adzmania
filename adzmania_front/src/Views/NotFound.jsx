@@ -3,7 +3,7 @@ import { getOrders } from "./Data";
 import { useStateContext } from "../Contexts/contextProvider.jsx";
 function NotFound() {
   // const [orders, setOrders] = useState([]);
-  const { orders, user } = useStateContext();
+  const { orders, user, users } = useStateContext();
 
   // useEffect(() => {
   //   async function fetchData() {
@@ -19,8 +19,9 @@ function NotFound() {
   // }, []);
   return (
     <div>
-      {JSON.stringify(orders)}
-      {JSON.stringify(user)}
+      {/* {JSON.stringify(orders)}
+      {JSON.stringify(user)} */}
+      {JSON.stringify(users)}
       <p>{"hello"}</p>
     </div>
   );

@@ -3,6 +3,7 @@ import { axiosClient } from "../axios";
 const StateContext = createContext();
 export const ContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [users, setUsers] = useState([]);
   const [orders, setOrders] = useState([]);
   const [token, _setToken] = useState(localStorage.getItem("ACCESS_TOKEN")); //TODO: remember to make this get data from session
   const setToken = (token) => {
@@ -30,6 +31,16 @@ export const ContextProvider = ({ children }) => {
       setToken(null);
     }
   };
+  const getUsers = async () => {
+    const users = await axiosClient.get("api/admin/users", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    setUsers(users.data);
+    console.log(users);
+  };
+
   const getOrders = async (role) => {
     let path = "api/orders";
     if (role == "admin") {
@@ -53,6 +64,9 @@ export const ContextProvider = ({ children }) => {
         });
         setUser(res.data);
         getOrders(res.data.role);
+        if (res.data.role == "admin") {
+          getUsers();
+        }
       } catch (error) {
         setToken(null);
         console.error("error", error);
@@ -73,6 +87,7 @@ export const ContextProvider = ({ children }) => {
         logout,
         orders,
         getOrders,
+        users,
       }}
     >
       {children}
