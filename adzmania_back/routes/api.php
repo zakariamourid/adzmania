@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\AdminOrderController;
 use App\Http\Controllers\TestController;
@@ -40,6 +41,7 @@ Route::middleware(['auth:sanctum', 'role'])->group(function () {
 });
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::put('user', [UserController::class,'update']);
+    Route::get("sendMail",[MailController::class,'send']);
 });
 
 Route::post("login", [AuthController::class, 'login']);

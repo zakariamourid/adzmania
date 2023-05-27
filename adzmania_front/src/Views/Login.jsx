@@ -27,6 +27,7 @@ export default function Login() {
       ...prev,
       [e.target.name]: e.target.value.toLowerCase(),
     }));
+    setIsInvalid(false);
   };
   const handleBlur = (e) => {
     if (!e.target.value) {
@@ -73,6 +74,8 @@ export default function Login() {
       setToken(res.data.token);
       console.log("token : ", res.data.token);
     } catch (error) {
+      console.log("error : ", error.name);
+      console.error("error : ", error.response);
       console.error("error.message : ", error.response.data.message);
       setIsInvalid(true);
       return;

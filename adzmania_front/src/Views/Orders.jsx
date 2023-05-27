@@ -1,5 +1,5 @@
 import React from "react";
-import OrdersTable from "./OrderTables1";
+import OrdersTable from "./OrderTables";
 
 function Orders() {
   return (

@@ -1,6 +1,6 @@
 import React from "react";
 import Cards from "../../Views/cards";
-import OrdersTable from "../../Views/OrderTables1";
+import OrdersTable from "../../Views/OrderTables";
 const AdminDashboard = () => {
   return (
     <div className="container p-10 mx-auto">

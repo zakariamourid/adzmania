@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import {
   useTable,
   useSortBy,
@@ -7,8 +8,14 @@ import {
 } from "react-table";
 import { useStateContext } from "../../Contexts/contextProvider";
 import GlobalFiltering from "../../Views/GlobalFiltering";
+import EditModal from "./EditModal";
 const UsersTable = () => {
   const { users } = useStateContext();
+  const { user, setUser } = useState({});
+  const editUser = () => {
+    setIsOpen(true);
+  };
+  const { isOpen, setIsOpen } = useState(true);
   const columns = React.useMemo(
     () => [
       {
@@ -30,6 +37,18 @@ const UsersTable = () => {
       {
         Header: "Phone",
         accessor: "phone",
+      },
+      {
+        id: "edit",
+        Header: "edit",
+        Cell: ({ row }) => (
+          <button
+            className="bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-md disabled:bg-gray-50 disabled:hidden"
+            onClick={editUser}
+          >
+            Edit
+          </button>
+        ),
       },
     ],
     []
@@ -66,23 +85,10 @@ const UsersTable = () => {
             globalFilter={globalFilter}
             selectFilter={false}
           />
+          <EditModal isOpen={isOpen} setIsOpen={setIsOpen} />
           <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
               <table {...getTableProps()} className="min-w-full">
-                {/* <thead className="bg-white border-b dark:bg-primary_dark_bg dark:text-white">
-                  {headerGroups.map((headerGroup) => (
-                    <tr {...headerGroup.getHeaderGroupProps()}>
-                      {headerGroup.headers.map((column) => (
-                        <th
-                          {...column.getHeaderProps()}
-                          className="text-sm font-bold  px-6 py-4 text-left"
-                        >
-                          {column.render("Header")}
-                        </th>
-                      ))}
-                    </tr>
-                  ))}
-                </thead> */}
                 <thead className="bg-white border-b dark:bg-primary_dark_bg dark:text-white">
                   {headerGroups.map((headerGroup) => (
                     <tr {...headerGroup.getHeaderGroupProps()}>

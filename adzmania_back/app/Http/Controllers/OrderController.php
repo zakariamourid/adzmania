@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\OrderCollection;
 use App\Http\Resources\OrderResource;
+use App\Mail\AdminOrderNotification;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -17,7 +19,7 @@ class OrderController extends Controller
     public function index()
     {
        $user = Auth::user();
-        $orders=Order::where('user_id',$user->id)->paginate();
+        $orders=Order::where('user_id',$user->id)->paginate(5000);
  
     
 return  new OrderCollection($orders); 
@@ -38,6 +40,7 @@ return  new OrderCollection($orders);
                 ]
                 );
                  
+        try{
             $order=Order::create([
             "product"=>$request->product,
 	        "price"=>$request->price,
@@ -49,6 +52,15 @@ return  new OrderCollection($orders);
              "email"=>$request->user()->email,
       
         ]);
+        $user=$request->user();
+    
+        Mail::to("zakaria@gmail.com")->send(new AdminOrderNotification($order,$user));
+        }catch(\Exception $e){
+            return response()->json([
+                'message' => 'Order not created',
+                'error' => $e->getMessage(),
+            ], 400);
+        }
         return response()->json([
             'message' => 'Order created successfully',
             'payment_mode' => $order->payment_method,

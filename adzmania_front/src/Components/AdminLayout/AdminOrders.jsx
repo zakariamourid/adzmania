@@ -1,5 +1,5 @@
 import React from "react";
-import OrdersTable from "../../Views/OrderTables1";
+import OrdersTable from "../../Views/OrderTables";
 
 const AdminOrders = () => {
   return (

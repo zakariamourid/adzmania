@@ -34,14 +34,15 @@ function NewOrder() {
     });
   const navigate = useNavigate();
   const { token, getOrders } = useStateContext();
+  const [isLoading, setIsLoading] = useState(false);
   const handleConfirmOrder = async () => {
-    x;
+    setIsLoading(true);
     try {
       const res = await axiosClient.post(
         "/api/orders",
         {
           product: formData.product,
-          price: formData.budget,
+          price: Math.round(formData.budget * 1.1),
           business_name: formData.businessName,
           contact_name: formData.contactName,
           payment_method: formData.paymentMethod.toLowerCase(),
@@ -54,11 +55,13 @@ function NewOrder() {
         }
       );
       console.log(res);
+    } catch (error) {
+      console.log(error);
+    } finally {
       getOrders();
       notify();
       navigate("/orders");
-    } catch (error) {
-      console.log(error);
+      setIsLoading(false);
     }
   };
   const [errors, setErrors] = useState({
@@ -67,13 +70,13 @@ function NewOrder() {
     contactEmail: false,
     customAmount: false,
   });
-  console.log("render");
+
   const amounts = [
-    { amount: "100" },
-    { amount: "500" },
-    { amount: "600" },
-    { amount: "800" },
     { amount: "1000" },
+    { amount: "1500" },
+    { amount: "2000" },
+    { amount: "2500" },
+    { amount: "3000" },
     { amount: "custom" },
   ];
   const [selectedAmount, setSelectedAmount] = useState(amounts[0]);
@@ -111,7 +114,7 @@ function NewOrder() {
     businessName: "",
     contactName: "",
     contactEmail: "",
-    budget: "10",
+    budget: "1000",
     product: "",
     paymentMethod: "Cih",
   });
@@ -138,7 +141,7 @@ function NewOrder() {
   };
   const handleNewOrderButton = (product) => {
     setFormData((prevState) => ({ ...prevState, product: product }));
-    console.log(product);
+
     setFormStep(FormStep + 1);
   };
   const [FormStep, setFormStep] = useState(0);
@@ -354,13 +357,14 @@ function NewOrder() {
         <OrderSummary
           formData={formData}
           handleConfirmOrder={handleConfirmOrder}
+          isLoading={isLoading}
         />
       )}
       {FormStep !== 0 && FormStep !== 3 && (
         <div className="flex justify-center mt-4 ">
           <button
             onClick={PreviousStep}
-            className="order-button bg-white dark:bg-white dark:text-main_red dark:border-main_red hover:scale-105 hover:bg-main_red text-red-500 hover:text-white font-semibold py-2  px-8 border border-gray-200 rounded shadow  mr-4"
+            className="order-button bg-white dark:bg-white dark:text-main_red dark:border-main_red  hover:bg-main_red text-red-500 hover:text-white font-semibold py-2  px-8 border border-gray-200 rounded shadow  mr-4"
           >
             Back
           </button>
