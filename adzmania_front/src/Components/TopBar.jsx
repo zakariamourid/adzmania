@@ -32,8 +32,8 @@ function TopBar() {
         <img src={LogoCenter} className="w-40 h-24" alt="" />
       </div>
       <div className="flex align-center ">
-        <div className=" inline-flex items-center  mr-2">
-          <div className=" border border-white  dark:border-dark_cards dark:border-bg-primary_dark_bg dark:hover:border-black hover:border-gray-300 p-2 rounded-lg cursor-pointer">
+        <div className=" inline-flex items-center  mr-2 group ">
+          <div className=" border border-white  dark:border-bg-primary_dark_bg  dark:hover:border-black hover:border-gray-300 p-2 rounded-lg cursor-pointer">
             {" "}
             {theme === "light" ? (
               <SunIcon
@@ -42,7 +42,7 @@ function TopBar() {
               />
             ) : (
               <MoonIcon
-                className="w-6 h-6 text-white dark:hover:text-black "
+                className="w-6 h-6 text-white dark:hover:text-black"
                 onClick={() => setTheme("light")}
               />
             )}

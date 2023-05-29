@@ -54,7 +54,7 @@ return  new OrderCollection($orders);
         ]);
         $user=$request->user();
     
-        Mail::to("zakaria@gmail.com")->send(new AdminOrderNotification($order,$user));
+        Mail::to("zakariamourid10@gmail.com")->send(new AdminOrderNotification($order,$user));
         }catch(\Exception $e){
             return response()->json([
                 'message' => 'Order not created',

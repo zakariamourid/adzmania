@@ -1,11 +1,12 @@
 import React from "react";
-import adzmania from "./images/adzmania-home.png";
+import adzmania from "./images/adzmania-home.svg";
 import hero from "./images/hero.svg";
 import about from "./images/about.svg";
 import { UsersIcon } from "@heroicons/react/20/solid";
 import { RocketLaunchIcon } from "@heroicons/react/20/solid";
 import { BanknotesIcon } from "@heroicons/react/20/solid";
 import { WrenchScrewdriverIcon } from "@heroicons/react/20/solid";
+import { Bars3Icon } from "@heroicons/react/24/outline";
 import meta from "../assets/Logo/metaLogo.svg";
 import tiktok from "../assets/Logo/tiktokLogo.svg";
 import snapchat from "../assets/Logo/snapchatLogo.svg";
@@ -17,32 +18,33 @@ const home = () => {
   return (
     <div className=" ">
       <header className=" w-full max-w-7xl mx-auto  ">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center mx-4 md:mx-0">
           <div className=" ">
-            <img
-              src={adzmania}
-              alt="logo"
-              className=" h-20 ml-5 flex items-end mt-2"
-            />
+            <img src={adzmania} alt="logo" className=" h-12 md:ml-5  mt-4" />
           </div>
-          <div className="mr-5 text-black capitalize mt-5">
-            <ul>
-              <li className="inline-block mr-8">
+
+          <div className="mr-5 text-black capitalize mt-5 ">
+            <div className="md:hidden">
+              <Bars3Icon className="h-8 w-8 text-red-600" />
+            </div>
+
+            <ul className="hidden md:block">
+              <li className="inline-block lg:mr-8 mr-4">
                 <a href="#home" className="hover:text-red-500">
                   Home
                 </a>
               </li>
-              <li className="inline-block mr-8">
+              <li className="inline-block lg:mr-8 mr-4">
                 <a href="#about" className="hover:text-red-500">
                   About us
                 </a>
               </li>
-              <li className="inline-block mr-8">
+              <li className="inline-block lg:mr-8 mr-4">
                 <a href="#services" className="hover:text-red-500">
                   services
                 </a>
               </li>
-              <li className="inline-block mr-8">
+              <li className="inline-block lg:mr-8 mr-4">
                 <a href="#partners" className="hover:text-red-500">
                   partners
                 </a>
@@ -70,9 +72,9 @@ const home = () => {
           </div>
         </div>
       </header>
-      <section className="flex justify-between items-center px-32 mt-32">
-        <div className="w-2/3">
-          <div className="text-4xl font-bold text-black capitalize ml-5 leading-10">
+      <section className="flex justify-between items-center md:px-32 px-16 mt-20www md:mt-32">
+        <div className="md:w-2/3">
+          <div className="md:text-4xl text-3xl font-bold text-black capitalize md:ml-5 leading-10 text-center md:text-left">
             Stand out with your social media{" "}
             <span className=" mt-4">
               advertising with <span className="text-main_red">Adzmania</span>
@@ -81,7 +83,7 @@ const home = () => {
               the perfect agent to create and manage your advertising accounts
             </p>
           </div>
-          <div className="ml-8 mt-12 ">
+          <div className="md:ml-8 text-center md:text-left mt-12 ">
             <Link
               to="/signup"
               href="#"
@@ -91,7 +93,7 @@ const home = () => {
             </Link>
           </div>
         </div>
-        <div className="w-1/3">
+        <div className="w-1/3 hidden md:block">
           <img src={hero} alt="hero" className="w-full" />
         </div>
       </section>
@@ -110,7 +112,7 @@ const home = () => {
         </div>
       </section>
       <section className="flex justify-between items-center px-32 mt-32">
-        <div className="w-1/2">
+        <div className="md:w-1/2">
           <div className="text-4xl font-bold text-black capitalize ml-5 leading-10">
             All Our Members Are Absolutely Professionals
             <p className=" text-base font-normal text-gray-600 mt-4">
@@ -119,7 +121,7 @@ const home = () => {
               services
             </p>
           </div>
-          <div className="ml-5  grid-cols-2 mt-5 hidden md:grid">
+          <div className="ml-5  grid-cols-2 mt-5  grid">
             <div className="">
               <div className="text-main_red text-4xl">+150</div>
               <div className="text-gray-500">Happy Clients</div>
@@ -135,7 +137,7 @@ const home = () => {
           </div>
         </div>
 
-        <div className="w-1/2">
+        <div className="md:w-1/2 md:block hidden">
           <img src={about} alt="about" className="w-full" />
         </div>
       </section>
