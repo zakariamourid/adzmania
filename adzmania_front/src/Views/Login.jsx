@@ -14,6 +14,7 @@ export default function Login() {
   // }, []);
 
   const [isInvalid, setIsInvalid] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
   const [formData, setFormData] = React.useState({
     email: "",
     password: "",
@@ -64,6 +65,7 @@ export default function Login() {
     //   email: formData.email,
     //   password: formData.password,
     // });
+    setIsLoading(true);
     try {
       const res = await axiosClient.post("/api/login", {
         email: formData.email,
@@ -79,6 +81,8 @@ export default function Login() {
       console.error("error.message : ", error.response.data.message);
       setIsInvalid(true);
       return;
+    } finally {
+      setIsLoading(false);
     }
 
     // setUser(res.data);
@@ -147,9 +151,35 @@ export default function Login() {
             <div>
               <button
                 type="submit"
+                disabled={isLoading}
                 className="flex w-full justify-center rounded-md bg-red-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Login
+                {isLoading ? (
+                  <svg
+                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                    ></path>
+                  </svg>
+                ) : (
+                  ""
+                )}
+                Sign in
               </button>
             </div>
           </form>

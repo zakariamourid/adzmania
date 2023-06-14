@@ -170,6 +170,12 @@ function NewOrder() {
       if (formData.budget === "") {
         setErrors((prevState) => ({ ...prevState, budget: true }));
         hasErorrs = true;
+      } else if (formData.budget < 1000 || formData.budget > 100000) {
+        setErrors((prevState) => ({
+          ...prevState,
+          budget: "the budget should be between 1000 and 100000",
+        }));
+        hasErorrs = true;
       }
       if (hasErorrs) {
         return;
@@ -339,10 +345,12 @@ function NewOrder() {
                   name="budget"
                   placeholder="custom amount"
                   type="number"
+                  max="100000"
+                  min="1000"
                   value={formData.budget}
                   onBlur={handleInputBlur}
                   onChange={handleInputChange}
-                  error={errors.customAmount}
+                  error={errors.budget}
                 />
               </div>
             </div>

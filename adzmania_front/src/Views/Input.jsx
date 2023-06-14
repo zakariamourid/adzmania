@@ -11,6 +11,7 @@ function Input({
   error,
   readOnly,
   classes,
+  ...rest
 }) {
   return (
     <div className="sm:col-span-3">
@@ -32,6 +33,7 @@ function Input({
           value={value}
           onChange={onChange}
           placeholder={placeholder}
+          {...rest}
           className={`block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-white shadow-sm ring-1 ring-inset ring-black dark:ring-black dark:bg-black  ${
             error
               ? "ring-red-500 placeholder-red-300 focus:ring-red-500"
