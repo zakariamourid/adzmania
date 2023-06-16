@@ -5,7 +5,14 @@ import Input from "../Views/Input";
 import { axiosClient } from "../axios";
 import { useStateContext } from "../Contexts/contextProvider.jsx";
 import { useNavigate, Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 export default function Login() {
+  const { t, i18n } = useTranslation();
+  React.useEffect(() => {
+    const lng = navigator.language;
+    i18n.changeLanguage(lng);
+  }, []);
+  const lng = navigator.language;
   const navigate = useNavigate();
 
   const { setUser, user, setToken, token } = useStateContext();
@@ -98,7 +105,7 @@ export default function Login() {
           <div className="flex items-center  ">
             <Link to={"/signup"}>
               <div className="text-center font-bold  cursor-pointer text-white bg-main_red border-red-200   px-5 py-2 rounded-2xl">
-                Sign up
+                {t("login.signup")}
               </div>
             </Link>
           </div>
@@ -106,7 +113,7 @@ export default function Login() {
       </header>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8  mt-32 ">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm text-3xl ">
-          Welcome Back to <br />
+          {t("login.welcome")} <br />
           <span className="  text-main_red font-bold text-4xl">Adzmaina</span>
         </div>
 
@@ -179,15 +186,15 @@ export default function Login() {
                 ) : (
                   ""
                 )}
-                Sign in
+                {t("login.login")}
               </button>
             </div>
           </form>
           <div className="mt-6 text-center">
-            don't have an account ?{" "}
+            {t("login.dontHaveAccount")}{" "}
             <Link to={"/signup"}>
               <span className="text-red-500 font-bold cursor-pointer">
-                Sign up
+                {t("login.signup")}
               </span>
             </Link>
           </div>

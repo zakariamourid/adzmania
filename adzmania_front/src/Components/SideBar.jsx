@@ -8,8 +8,16 @@ import { Cog8ToothIcon } from "@heroicons/react/24/outline";
 import { ArrowLeftOnRectangleIcon } from "@heroicons/react/24/outline";
 import { Link, useLocation } from "react-router-dom";
 import { useStateContext } from "../Contexts/contextProvider";
+import { useTranslation } from "react-i18next";
 
 const SideBar = () => {
+  const { t, i18n } = useTranslation();
+  React.useEffect(() => {
+    const lng = navigator.language;
+    i18n.changeLanguage(lng);
+  }, []);
+  const lng = navigator.language;
+
   const location = useLocation();
   // const { logout } = useStateContext();
   const isActive = (path) => location.pathname === path;
@@ -34,7 +42,7 @@ const SideBar = () => {
         >
           <Link to="/dashboard">
             <HomeIcon className="h-6 w-6 " />
-            <span className="links_name ">Dashboard</span>
+            <span className="links_name ">{t("dashboard.dashboard")}</span>
           </Link>
         </li>
         <li
@@ -42,13 +50,13 @@ const SideBar = () => {
         >
           <Link to="/new-order">
             <PlusIcon className="h-6 w-6" />
-            <span className="links_name">New Order</span>
+            <span className="links_name">{t("dashboard.newOrder")}</span>
           </Link>
         </li>
         <li className={`nav-link ${isActive("/orders") ? "active-link" : ""}`}>
           <Link to="/orders">
             <ShoppingCartIcon className="h-6 w-6" />
-            <span className="links_name">Orders</span>
+            <span className="links_name">{t("dashboard.orders")}</span>
           </Link>
         </li>
         <li
@@ -56,14 +64,14 @@ const SideBar = () => {
         >
           <Link to="/settings">
             <Cog8ToothIcon className="h-6 w-6" />
-            <span className="links_name">Settings</span>
+            <span className="links_name">{t("dashboard.settings")}</span>
           </Link>
         </li>
       </ul>
       <div className="logout-link nav-link ">
         <a onClick={handleLogout} className="cursor-pointer">
           <ArrowLeftOnRectangleIcon className="h-6 w-6" />
-          <span className="links_name">Logout</span>
+          <span className="links_name">{t("dashboard.logout")}</span>
         </a>
       </div>
     </div>

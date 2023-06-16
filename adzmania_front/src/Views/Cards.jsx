@@ -7,10 +7,17 @@ import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import { useStateContext } from "../Contexts/contextProvider.jsx";
+import { useTranslation } from "react-i18next";
 
 import "react-toastify/dist/ReactToastify.css";
 
 function cards() {
+  const { t, i18n } = useTranslation();
+  React.useEffect(() => {
+    const lng = navigator.language;
+    i18n.changeLanguage(lng);
+  }, []);
+  const lng = navigator.language;
   const { orders, user } = useStateContext();
 
   const pendingOrders = orders.filter(
@@ -26,7 +33,9 @@ function cards() {
   return (
     <div className="cards-section">
       <div className="section-header">
-        <h1 className="dark:text-white text-3xl font-bold">Dashboard</h1>
+        <h1 className="dark:text-white text-3xl font-bold">
+          {t("dashboard.dashboard")}
+        </h1>
         <button>
           <Link
             to={user && user.role === "admin" ? "/orders-admin" : "/new-order"}
@@ -45,7 +54,9 @@ function cards() {
       <div className="cards">
         <div className="card dark:bg-dark_cards">
           <div className="card-header">
-            <h2 className="card-header-name dark:text-white">All Orders</h2>
+            <h2 className="card-header-name dark:text-white">
+              {t("dashboard.allOrders")}
+            </h2>
           </div>
           <div className="card-body">
             <p className="card-body-text dark:text-white">{orders.length}</p>
@@ -56,7 +67,9 @@ function cards() {
         </div>{" "}
         <div className="card dark:bg-dark_cards">
           <div className="card-header">
-            <h2 className="card-header-name dark:text-white">Pending</h2>
+            <h2 className="card-header-name dark:text-white">
+              {t("dashboard.pendingOrders")}
+            </h2>
           </div>
           <div className="card-body">
             <p className="card-body-tex dark:text-white">{pendingOrders}</p>
@@ -67,7 +80,10 @@ function cards() {
         </div>{" "}
         <div className="card dark:bg-dark_cards">
           <div className="card-header">
-            <h2 className="card-header-name dark:text-white">Process</h2>
+            <h2 className="card-header-name dark:text-white">
+              {" "}
+              {t("dashboard.processOrders")}
+            </h2>
           </div>
           <div className="card-body">
             <p className="card-body-text dark:text-white">{processOrders}</p>
@@ -78,7 +94,10 @@ function cards() {
         </div>
         <div className="card dark:bg-dark_cards">
           <div className="card-header">
-            <h2 className="card-header-name dark:text-white">Completed</h2>
+            <h2 className="card-header-name dark:text-white">
+              {" "}
+              {t("dashboard.completedOrders")}
+            </h2>
           </div>
           <div className="card-body">
             <p className="card-body-text dark:text-white">{deliveredOrders}</p>

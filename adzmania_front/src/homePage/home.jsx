@@ -11,10 +11,17 @@ import meta from "../assets/Logo/metaLogo.svg";
 import tiktok from "../assets/Logo/tiktokLogo.svg";
 import snapchat from "../assets/Logo/snapchatLogo.svg";
 import google from "../assets/Logo/GoogleLogo.svg";
+import { useTranslation } from "react-i18next";
 
 import { Link } from "react-router-dom";
 
 const home = () => {
+  const { t, i18n } = useTranslation();
+  React.useEffect(() => {
+    const lng = navigator.language;
+    i18n.changeLanguage(lng);
+  }, []);
+  const lng = navigator.language;
   return (
     <div className=" ">
       <header className=" w-full max-w-7xl mx-auto  ">
@@ -31,22 +38,22 @@ const home = () => {
             <ul className="hidden md:block">
               <li className="inline-block lg:mr-8 mr-4">
                 <a href="#home" className="hover:text-red-500">
-                  Home
+                  {t("home.home")}
                 </a>
               </li>
               <li className="inline-block lg:mr-8 mr-4">
                 <a href="#about" className="hover:text-red-500">
-                  About us
+                  {t("home.about")}
                 </a>
               </li>
               <li className="inline-block lg:mr-8 mr-4">
                 <a href="#services" className="hover:text-red-500">
-                  services
+                  {t("home.services")}
                 </a>
               </li>
               <li className="inline-block lg:mr-8 mr-4">
                 <a href="#partners" className="hover:text-red-500">
-                  partners
+                  {t("home.partners")}
                 </a>
               </li>
 
@@ -56,7 +63,7 @@ const home = () => {
                   href="#"
                   className="text-main_red bg-white border border-main_red transition-all rounded-2xl hover:text-white hover:bg-main_red py-3 px-8"
                 >
-                  Sign up
+                  {t("home.signup")}
                 </Link>
               </li>
               <li className="inline-block mr-8">
@@ -65,7 +72,7 @@ const home = () => {
                   href="#"
                   className="hover:text-main_red hover:bg-white border border-main_red transition-all rounded-2xl text-white bg-main_red py-3 px-8"
                 >
-                  Login
+                  {t("home.login")}
                 </Link>
               </li>
             </ul>
@@ -75,12 +82,15 @@ const home = () => {
       <section className="flex justify-between items-center md:px-32 px-16 mt-20www md:mt-32">
         <div className="md:w-2/3">
           <div className="md:text-4xl text-3xl font-bold text-black capitalize md:ml-5 leading-10 text-center md:text-left">
-            Stand out with your social media{" "}
-            <span className=" mt-4">
-              advertising with <span className="text-main_red">Adzmania</span>
+            {t("home.standOutText")}{" "}
+            <span className="mt-4">
+              {t("home.adzmania")}{" "}
+              <span className="text-main_red">
+                {t("home.adzmaniaHighlight")}
+              </span>
             </span>
-            <p className=" text-base font-normal text-gray-600 mt-2">
-              the perfect agent to create and manage your advertising accounts
+            <p className="text-base font-normal text-gray-600 mt-2">
+              {t("home.perfectAgent")}
             </p>
           </div>
           <div className="md:ml-8 text-center md:text-left mt-12 ">
@@ -89,7 +99,7 @@ const home = () => {
               href="#"
               className="hover:text-main_red  hover:bg-white border border-main_red transition-all rounded-full text-white bg-main_red py-3 px-8 "
             >
-              Get started
+              {t("home.getStarted")}
             </Link>
           </div>
         </div>
@@ -99,41 +109,39 @@ const home = () => {
       </section>
       <section id="services">
         <div className=" mx-auto w-full text-center  py-16 mt-32 bg-red-600">
-          <div className="text-3xl font-bold text-white mx-auto">
-            {" "}
-            Innovative, Professional, and Passionate: <br /> AdzMania Delivers
-            Exceptional Services
+          <div className="text-3xl font-bold w-2/3 text-white mx-auto">
+            {t("home.section2.title")}
           </div>
           <p className="text-gray-200  font-normal mx-auto w-2/3 mt-4 ">
-            To stay ahead of the competition and drive revenue growth,
-            businesses require the expertise of a digital marketing professional
-            - just like the team at AdzMania
+            {t("home.section2.description")}
           </p>
         </div>
       </section>
       <section className="flex justify-between items-center px-32 mt-32">
         <div className="md:w-1/2">
-          <div className="text-4xl font-bold text-black capitalize ml-5 leading-10">
-            All Our Members Are Absolutely Professionals
-            <p className=" text-base font-normal text-gray-600 mt-4">
-              We are a passionate team brimming with innovative ideas. Our joy
-              comes from supporting our clients by delivering top-quality
-              services
-            </p>
+          <div className="text-3xl font-bold text-black capitalize ml-5 leading-10">
+            {t("home.section3.title")}
+            {/* <p className=" text-base font-normal text-gray-600 mt-4">
+              {t("home.section3.description")}
+            </p> */}
           </div>
           <div className="ml-5  grid-cols-2 mt-5  grid">
             <div className="">
               <div className="text-main_red text-4xl">+150</div>
-              <div className="text-gray-500">Happy Clients</div>
+              <div className="text-gray-500">
+                {t("home.section3.happyCustomer")}
+              </div>
             </div>
             <div className="">
               <div className="text-main_red text-4xl">+5 </div>
-              <div className="text-gray-500"> Years of experience</div>
+              <div className="text-gray-500">
+                {t("home.section3.yearsOfExperience")}
+              </div>
             </div>{" "}
-            <div className="">
+            {/* <div className="">
               <div className="text-main_red text-4xl mt-5">+50</div>
               <div className="text-gray-500">Business Partner</div>
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -143,7 +151,7 @@ const home = () => {
       </section>
       <section className=" mt-32" id="about">
         <div className="text-4xl font-bold text-black text-center capitalize  leading-10 mx-auto  w-7/12">
-          We Can Improve Your Business Performance And Gain More Customers
+          {t("home.section4.title")}
         </div>
       </section>
       <section className=" px-32 mt-32    grid lg:grid-cols-2 grid-cols-1 gap-3  ">
@@ -152,11 +160,10 @@ const home = () => {
             <UsersIcon className="h-12 w-12 mx-auto" />
           </div>
           <div className="text-2xl mt-5 font-bold  capitalize ml-5 leading-10">
-            Reach More Customers{" "}
+            {t("home.section4.card1.title")}
           </div>
           <div className="text-base font-normal  mt-4">
-            We can help you reach more customers by creating and managing your
-            social media accounts
+            {t("home.section4.card1.description")}
           </div>
         </div>
         <div className="group transition-all p-16 shadow text-black bg-white rounded-lg hover:bg-main_red hover:text-white text-center cursor-pointer  ">
@@ -164,14 +171,13 @@ const home = () => {
             <RocketLaunchIcon className="h-12 w-12 mx-auto" />
           </div>
           <div className=" text-2xl mt-5 font-bold  capitalize ml-5 leading-10">
-            Increase Your Sales{" "}
+            {t("home.section4.card2.title")}
           </div>
           <div className="text-base font-normal  mt-4">
-            We can help you increase your sales by creating and managing your
-            social media accounts
+            {t("home.section4.card2.description")}
           </div>
         </div>
-        <div className="group transition-all p-16 shadow text-black bg-white rounded-lg hover:bg-main_red hover:text-white text-center cursor-pointer  ">
+        {/* <div className="group transition-all p-16 shadow text-black bg-white rounded-lg hover:bg-main_red hover:text-white text-center cursor-pointer  ">
           <div className="    text-main_red group-hover:text-white">
             <BanknotesIcon className="h-12 w-12 mx-auto" />
           </div>
@@ -194,12 +200,12 @@ const home = () => {
             We can help you customize your services by creating and managing
             your social media accounts
           </div>
-        </div>
+        </div> */}
       </section>
       <section className=" mt-32" id="partners">
         <div className="section-header">
           <h2 className="text-4xl font-bold text-black text-center capitalize  leading-10 mx-auto  w-7/12">
-            Our Partners
+            {t("home.section5.title")}
           </h2>
         </div>
         <div className="mx-auto w-8/12 flex items-center justify-between mt-16">
@@ -221,12 +227,10 @@ const home = () => {
         <div className=" mx-auto w-full text-center  py-16 mt-32 bg-red-600">
           <div className="text-3xl font-bold text-white mx-auto">
             {" "}
-            Make your decision now to see the amazing final project{" "}
+            {t("home.section6.title")}
           </div>
           <p className="text-gray-200  font-normal mx-auto w-2/3 mt-4 ">
-            To stay ahead of the competition and drive revenue growth,
-            businesses require the expertise of a digital marketing professional
-            - just like the team at AdzMania
+            {t("home.section6.description")}
           </p>
           <div className="sign mt-10">
             <Link
@@ -234,7 +238,7 @@ const home = () => {
               href="#"
               className="text-main_red  bg-white border hover:border-main_red transition-all rounded-full hover:text-white hover:bg-main_red py-3 px-8 "
             >
-              Get started
+              {t("home.getStarted")}
             </Link>
           </div>
         </div>
@@ -251,17 +255,17 @@ const home = () => {
             <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
               <div>
                 <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-                  Contact Us
+                  {t("home.footer.ContactUs")}
                 </h2>
                 <ul className="text-gray-600 dark:text-gray-400 font-medium">
                   <li className="mb-4">
                     <a href="#" className="hover:underline ">
-                      larmo@agency.ma
+                      contact@adzmania.ma
                     </a>
                   </li>
                   <li>
                     <a href="#" className="hover:underline">
-                      +2120663054819
+                      Soon
                     </a>
                   </li>
                 </ul>
@@ -331,7 +335,7 @@ const home = () => {
                 <span className="sr-only">Facebook page</span>
               </a>
               <a
-                href="#"
+                href="https://instagram.com/adzmaniadotma?igshid=ZWQyN2ExYTkwZQ=="
                 className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
               >
                 <svg

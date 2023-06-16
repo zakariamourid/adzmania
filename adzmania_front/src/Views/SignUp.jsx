@@ -4,7 +4,14 @@ import Input from "./Input";
 import { axiosClient } from "../axios";
 import { useStateContext } from "../Contexts/contextProvider.jsx";
 import { useNavigate, Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 function SignUp() {
+  const { t, i18n } = useTranslation();
+  React.useEffect(() => {
+    const lng = navigator.language;
+    i18n.changeLanguage(lng);
+  }, []);
+  const lng = navigator.language;
   const { setToken, setUser } = useStateContext();
   const [formData, setFormData] = React.useState({
     firstName: "",
@@ -80,7 +87,7 @@ function SignUp() {
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-6 mt-20 lg:px-8  ">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm text-3xl ">
-            Welcome Back to <br />
+            Welcome to <br />
             <span className="  text-main_red font-bold text-4xl">Adzmaina</span>
           </div>
         </div>

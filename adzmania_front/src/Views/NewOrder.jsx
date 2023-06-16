@@ -19,8 +19,15 @@ import { axiosClient } from "../axios";
 import { useStateContext } from "../Contexts/contextProvider.jsx";
 import { toast } from "react-toastify";
 import { tr } from "date-fns/locale";
+import { useTranslation } from "react-i18next";
 
 function NewOrder() {
+  const { t, i18n } = useTranslation();
+  React.useEffect(() => {
+    const lng = navigator.language;
+    i18n.changeLanguage(lng);
+  }, []);
+  const lng = navigator.language;
   const notify = () =>
     toast.success("order has been successfully submitted", {
       position: "bottom-right",
@@ -205,7 +212,7 @@ function NewOrder() {
           {" "}
           <div className="font-bold text-3xl  capitalize mb-4 dark:text-white">
             {" "}
-            01-Choose your platform
+            01-{t("NewOrder.ChoosePlatform")}
           </div>
           <div className="orders flex-row lg:flex  justify-evenly bg-white rounded-lg p-12 dark:bg-primary_dark_bg align-center ">
             <div className="order w-32 text-center mx-6 flex flex-col items-center">
@@ -273,10 +280,10 @@ function NewOrder() {
           <section>
             <div className="text-2xl font-semibold mt-4 dark:text-white">
               {" "}
-              Enter your informations
+              {t("NewOrder.EnterYourInformations")}
             </div>
             <p className="mt-1 text-sm leading-6 text-gray-600 mb-4 dark:text-gray-300">
-              Use a permanent address where you can receive mail.
+              {t("NewOrder.EnterYourInformationsDescription")}
             </p>
             <Input
               label="Business name"
@@ -316,10 +323,10 @@ function NewOrder() {
           {" "}
           <section>
             <div className="text-2xl font-semibold dark:text-white ">
-              Your Budget
+              {t("NewOrder.YourBudget")}
             </div>
             <p className="mt-1 text-sm leading-6 text-gray-600 mb-4 dark:text-stone-400">
-              Select or enter your custom amount and choose your payment option.
+              {t("NewOrder.YourBudgetDescription")}
             </p>
             <div className="sm:col-span-3">
               <label
