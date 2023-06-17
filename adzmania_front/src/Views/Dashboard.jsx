@@ -1,6 +1,6 @@
 import React from "react";
 import "../index.css";
-import Cards from "./cards";
+import Cards from "./Cards";
 import OrdersTable from "./OrderTables";
 function Dashboard() {
   return (

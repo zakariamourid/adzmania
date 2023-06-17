@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
 
 import "react-toastify/dist/ReactToastify.css";
 
-function cards() {
+function Cards() {
   const { t, i18n } = useTranslation();
   React.useEffect(() => {
     const lng = navigator.language;
@@ -111,4 +111,4 @@ function cards() {
   );
 }
 
-export default cards;
+export default Cards;
