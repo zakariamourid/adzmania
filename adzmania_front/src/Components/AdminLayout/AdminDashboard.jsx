@@ -1,5 +1,5 @@
 import React from "react";
-import Cards from "../../Views/cards";
+import Cards from "../../Views/Cards";
 import OrdersTable from "../../Views/OrderTables";
 const AdminDashboard = () => {
   return (
