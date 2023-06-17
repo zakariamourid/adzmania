@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import adzmania from "../assets/logoCenter.png";
 import Input from "../Views/Input";
 import { axiosClient } from "../axios";
-import { useStateContext } from "../Contexts/contextProvider.jsx";
+import { useStateContext } from "../Contexts/ContextProvider";
 import { useNavigate, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 export default function Login() {

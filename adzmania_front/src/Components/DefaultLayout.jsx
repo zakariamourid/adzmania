@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet, Navigate } from "react-router-dom";
-import { useStateContext } from "../Contexts/contextProvider.jsx";
+import { useStateContext } from "../Contexts/ContextProvider";
 import SideBar from "./SideBar.jsx";
 import TopBar from "./TopBar.jsx";
 import { ToastContainer } from "react-toastify";

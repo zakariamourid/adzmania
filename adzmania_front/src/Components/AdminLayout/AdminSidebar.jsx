@@ -8,7 +8,7 @@ import { Cog8ToothIcon } from "@heroicons/react/24/outline";
 import { UsersIcon } from "@heroicons/react/20/solid";
 import { ArrowLeftOnRectangleIcon } from "@heroicons/react/24/outline";
 import { Link, useLocation } from "react-router-dom";
-import { useStateContext } from "../../Contexts/contextProvider";
+import { useStateContext } from "../../Contexts/ContextProvider";
 
 const AdminSideBar = () => {
   const location = useLocation();

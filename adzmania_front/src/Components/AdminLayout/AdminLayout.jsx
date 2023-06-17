@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import { useStateContext } from "../../Contexts/contextProvider";
+import { useStateContext } from "../../Contexts/ContextProvider";
 import { Navigate } from "react-router-dom";
 import AdminSidebar from "../AdminLayout/AdminSidebar";
 import TopBar from "../TopBar";

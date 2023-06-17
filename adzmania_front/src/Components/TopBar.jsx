@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useStateContext } from "../Contexts/contextProvider.jsx";
+import { useStateContext } from "../Contexts/ContextProvider.jsx";
 import LogoCenter from "../assets/logoCenter.png";
 import DropDownMenu from "./DropDownMenu.jsx";
 import { SunIcon } from "@heroicons/react/20/solid";

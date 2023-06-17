@@ -7,7 +7,7 @@ import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import { Cog8ToothIcon } from "@heroicons/react/24/outline";
 import { ArrowLeftOnRectangleIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
-import { useStateContext } from "../Contexts/contextProvider";
+import { useStateContext } from "../Contexts/ContextProvider";
 
 export default function DropDownMenu() {
   const handleLogout = () => {

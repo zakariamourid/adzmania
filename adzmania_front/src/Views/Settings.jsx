@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import {
   ContextProvider,
   useStateContext,
-} from "../Contexts/contextProvider.jsx";
+} from "../Contexts/ContextProvider.jsx";
 // import eye icon from heroicons
 import { EyeIcon } from "@heroicons/react/24/outline";
 import { toast } from "react-toastify";

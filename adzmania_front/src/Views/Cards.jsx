@@ -6,7 +6,7 @@ import { ArrowPathRoundedSquareIcon } from "@heroicons/react/24/outline";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
-import { useStateContext } from "../Contexts/contextProvider.jsx";
+import { useStateContext } from "../Contexts/ContextProvider.jsx";
 import { useTranslation } from "react-i18next";
 
 import "react-toastify/dist/ReactToastify.css";

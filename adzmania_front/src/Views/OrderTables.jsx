@@ -12,7 +12,7 @@ import {
   usePagination,
 } from "react-table";
 import { statusColors } from "./Data";
-import { useStateContext } from "../Contexts/contextProvider.jsx";
+import { useStateContext } from "../Contexts/ContextProvider.jsx";
 import GlobalFiltering from "./GlobalFiltering";
 import { format, set } from "date-fns";
 import { ca, ro } from "date-fns/locale";

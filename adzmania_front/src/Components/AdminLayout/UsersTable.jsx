@@ -6,7 +6,7 @@ import {
   useGlobalFilter,
   usePagination,
 } from "react-table";
-import { useStateContext } from "../../Contexts/contextProvider";
+import { useStateContext } from "../../Contexts/ContextProvider";
 import GlobalFiltering from "../../Views/GlobalFiltering";
 import EditModal from "./EditModal";
 const UsersTable = () => {

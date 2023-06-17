@@ -16,7 +16,7 @@ import PaymentMethods from "./order-form/PaymentMethods";
 import { useNavigate } from "react-router-dom";
 import OrderSummary from "./order-form/OrderSummary";
 import { axiosClient } from "../axios";
-import { useStateContext } from "../Contexts/contextProvider.jsx";
+import { useStateContext } from "../Contexts/ContextProvider.jsx";
 import { toast } from "react-toastify";
 import { tr } from "date-fns/locale";
 import { useTranslation } from "react-i18next";
