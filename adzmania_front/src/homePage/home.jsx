@@ -12,6 +12,7 @@ import tiktok from "../assets/Logo/tiktokLogo.svg";
 import snapchat from "../assets/Logo/snapchatLogo.svg";
 import google from "../assets/Logo/GoogleLogo.svg";
 import { useTranslation } from "react-i18next";
+import Flag from "react-world-flags";
 
 import { Link } from "react-router-dom";
 
@@ -22,11 +23,18 @@ const home = () => {
     i18n.changeLanguage(lng);
   }, []);
   const lng = navigator.language;
+  const [selectedLanguage, setSelectedLanguage] = React.useState("en");
+  const handleLanguageChange = (event) => {
+    const newLanguage = event.target.value;
+    setSelectedLanguage(newLanguage);
+    i18n.changeLanguage(newLanguage);
+  };
+
   return (
-    <div className=" ">
-      <header className=" w-full max-w-7xl mx-auto  ">
+    <div className="">
+      <header className=" w-full max-w-7xl mx-auto">
         <div className="flex justify-between items-center mx-4 md:mx-0">
-          <div className=" ">
+          <div className="">
             <img src={adzmania} alt="logo" className=" h-12 md:ml-5  mt-4" />
           </div>
 
@@ -41,6 +49,7 @@ const home = () => {
                   {t("home.home")}
                 </a>
               </li>
+
               <li className="inline-block lg:mr-8 mr-4">
                 <a href="#about" className="hover:text-red-500">
                   {t("home.about")}
@@ -75,6 +84,15 @@ const home = () => {
                   {t("home.login")}
                 </Link>
               </li>
+              {/* <select
+                id="languageSelect"
+                onClick={handleLanguageChange}
+                value={selectedLanguage}
+                className="border-none bg-transparent text-black"
+              >
+                <option value="en">English</option>
+                <option value="fr">French</option>
+              </select> */}
             </ul>
           </div>
         </div>
