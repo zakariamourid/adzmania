@@ -11,7 +11,7 @@ import Orders from "./Views/Orders.jsx";
 import NewOrder from "./Views/NewOrder.jsx";
 import Settings from "./Views/Settings.jsx";
 import AdminLayout from "./Components/AdminLayout/AdminLayout.jsx";
-import AdminDashboard from "./Components/AdminLayout/adminDashboard.jsx";
+import AdminDashboard from "./Components/AdminLayout/AdminDashboard.jsx";
 import AdminOrders from "./Components/AdminLayout/AdminOrders.jsx";
 import AdminUsers from "./Components/AdminLayout/AdminUsers.jsx";
 
