@@ -18,11 +18,6 @@ import { Link } from "react-router-dom";
 
 const home = () => {
   const { t, i18n } = useTranslation();
-  React.useEffect(() => {
-    const lng = navigator.language;
-    i18n.changeLanguage(lng);
-  }, []);
-  const lng = navigator.language;
   const [selectedLanguage, setSelectedLanguage] = React.useState("en");
   const handleLanguageChange = (event) => {
     const newLanguage = event.target.value;
@@ -39,11 +34,16 @@ const home = () => {
           </div>
 
           <div className="mr-5 text-black capitalize mt-5 ">
-            <div className="md:hidden">
+            <div
+              className="md:hidden"
+              onClick={() => {
+                document.getElementById("navLinks").classList.toggle("hidden");
+              }}
+            >
               <Bars3Icon className="h-8 w-8 text-red-600" />
             </div>
 
-            <ul className="hidden md:block">
+            <ul className="hidden md:block" id="navLinks">
               <li className="inline-block lg:mr-8 mr-4">
                 <a href="#home" className="hover:text-red-500">
                   {t("home.home")}
@@ -84,20 +84,28 @@ const home = () => {
                   {t("home.login")}
                 </Link>
               </li>
-              {/* <select
+              <select
                 id="languageSelect"
-                onClick={handleLanguageChange}
-                value={selectedLanguage}
+                onChange={handleLanguageChange}
                 className="border-none bg-transparent text-black"
               >
-                <option value="en">English</option>
+                <option value="en">
+                  <Flag
+                    code="US"
+                    height="16"
+                    width="24"
+                    className="rounded-full"
+                  />
+                  English
+                </option>
                 <option value="fr">French</option>
-              </select> */}
+              </select>
+              {/* select */}
             </ul>
           </div>
         </div>
       </header>
-      <section className="flex justify-between items-center md:px-32 px-16 mt-20www md:mt-32">
+      <section className="flex justify-between items-center md:px-32 px-16 mt-20 md:mt-32">
         <div className="md:w-2/3">
           <div className="md:text-4xl text-3xl font-bold text-black capitalize md:ml-5 leading-10 text-center md:text-left">
             {t("home.standOutText")}{" "}
