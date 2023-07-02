@@ -5,7 +5,7 @@ export const ContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [users, setUsers] = useState([]);
   const [orders, setOrders] = useState([]);
-  const [token, _setToken] = useState(localStorage.getItem("ACCESS_TOKEN")); //TODO: remember to make this get data from session
+  const [token, _setToken] = useState(localStorage.getItem("ACCESS_TOKEN"));
   const setToken = (token) => {
     _setToken(token);
     if (token) {
