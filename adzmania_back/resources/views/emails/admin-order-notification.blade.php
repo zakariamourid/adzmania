@@ -8,8 +8,10 @@ A new order has been placed. Here are the order details:
 <!-- make a table  -->
 @component('mail::table')
 | Product | Price | Status | Payment Method | Business Name | Contact Name | Email | Date |
-| --------------- |:----------:| ---------:| -----------------:| ----------------:| ----------------:|----------------:|----------------:|
-| {{$order->product}} | {{$order->price}}MAD| {{$order->status}} | {{$order->payment_method}} | {{$order->business_name}}|{{$order->contact_name}} | {{$order->email}} | {{$order->created_at->format('d/m/Y')}} |
+| --------------- |:----------:| ---------:| -----------------:| ----------------:|
+----------------:|----------------:|----------------:|
+| {{$order->product}} | {{$order->price}}MAD| {{$order->status}} | {{$order->payment_method}} |
+{{$order->business_name}}|{{$order->contact_name}} | {{$order->email}} | {{$order->created_at->format('d/m/Y')}} |
 @endcomponent
 
 
