@@ -20,7 +20,7 @@ class AdminMiddleware
             if(Auth::user()->role==='admin'){
             return $next($request);
             }else{
-                return response("sir t7wa asi " .Auth::user()->role);
+                return response("error 404 " .Auth::user()->role);
             }
         }else{
             return response("sir t7wa tconnecta");
