@@ -14,7 +14,7 @@ function Input({
   ...rest
 }) {
   return (
-    <div className="sm:col-span-3">
+    <div className="sm:col-span-3 mt-2">
       <label
         htmlFor={name}
         className={`block text-sm mb-2 capitalize font-medium text-gray-700 dark:text-white ${

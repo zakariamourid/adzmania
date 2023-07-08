@@ -137,23 +137,62 @@ const EditModal = ({ isOpen, setIsOpen, order, setOrder, handleSave }) => {
                       <option value="tiktok">tiktok</option>
                     </select>
                   </div>
-                  <div className="mt-2">
-                    <label
-                      className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                      htmlFor="name"
-                    >
-                      contact name
-                    </label>
-                    <input
-                      type="text"
-                      id="contact_name"
-                      aria-label="contact_name"
-                      class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      value={order.contact_name}
-                      disabled
-                      readonly
-                    />
-                  </div>
+                  {/* show oly when meta */}
+                  {order.product === "meta" ? (
+                    <>
+                      <div className="mt-2">
+                        <label
+                          className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                          htmlFor="name"
+                        >
+                          contact name
+                        </label>
+                        <input
+                          type="text"
+                          id="contact_name"
+                          aria-label="contact_name"
+                          class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          value={order.contact_name}
+                          disabled
+                          readonly
+                        />
+                      </div>
+                      <div className="mt-2">
+                        <label
+                          className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                          htmlFor="business_name"
+                        >
+                          business name
+                        </label>
+                        <input
+                          type="text"
+                          id="business_name"
+                          aria-label="business_name"
+                          class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          value={order.business_name}
+                          disabled
+                          readonly
+                        />
+                      </div>
+                      <div className="mt-2">
+                        <label
+                          className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                          htmlFor="business_manager_id"
+                        >
+                          business manager id
+                        </label>
+                        <input
+                          type="text"
+                          id="business_manager_id"
+                          aria-label="business_manager_id"
+                          class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          value={order.business_manager_id}
+                          disabled
+                          readonly
+                        />
+                      </div>
+                    </>
+                  ) : null}
                   <div className="mt-2">
                     <label
                       className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -224,24 +263,25 @@ const EditModal = ({ isOpen, setIsOpen, order, setOrder, handleSave }) => {
                       id="date"
                       aria-label="date"
                       class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      value={format(new Date(order.date), "dd/MM/yyyy")}
+                      value={format(new Date(order.date), "dd/MM/yyyy HH:mm")}
                       disabled
                       readonly
                     />
                   </div>
+
                   <div className="mt-2">
                     <label
                       className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                      htmlFor="business_name"
+                      htmlFor="website"
                     >
-                      business name
+                      website
                     </label>
                     <input
                       type="text"
-                      id="business_name"
-                      aria-label="business_name"
+                      id="website"
+                      aria-label="website"
                       class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      value={order.business_name}
+                      value={order.website}
                       disabled
                       readonly
                     />

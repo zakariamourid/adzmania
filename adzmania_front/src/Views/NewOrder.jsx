@@ -50,10 +50,12 @@ function NewOrder() {
         {
           product: formData.product,
           price: Math.round(formData.budget * 1.1),
-          business_name: formData.businessName,
-          contact_name: formData.contactName,
+          email: formData.contactEmail,
+          website: formData.website,
           payment_method: formData.paymentMethod.toLowerCase(),
-          email: formData.email,
+          contact_name: formData.contactName,
+          business_name: formData.businessName,
+          business_manager_id: formData.business_manager_id,
         },
         {
           headers: {
@@ -73,9 +75,11 @@ function NewOrder() {
   };
   const [errors, setErrors] = useState({
     businessName: false,
+    website: false,
     contactName: false,
     contactEmail: false,
     customAmount: false,
+    business_manager_id: false,
   });
 
   const amounts = [
@@ -119,6 +123,8 @@ function NewOrder() {
 
   const [formData, setFormData] = useState({
     businessName: "",
+    website: "",
+    business_manager_id: "",
     contactName: "",
     contactEmail: "",
     budget: "1000",
@@ -158,20 +164,39 @@ function NewOrder() {
     }
     let hasErorrs = false;
     if (FormStep === 1 || FormStep === 2 || FormStep === 3) {
-      if (formData.businessName === "") {
-        setErrors((prevState) => ({ ...prevState, businessName: true }));
-        hasErorrs = true;
+      if (formData.product === "Meta") {
+        if (formData.businessName === "") {
+          setErrors((prevState) => ({ ...prevState, businessName: true }));
+          hasErorrs = true;
+        }
+        if (formData.contactName === "") {
+          setErrors((prevState) => ({ ...prevState, contactName: true }));
+          hasErorrs = true;
+        }
+
+        if (formData.business_manager_id === "") {
+          setErrors((prevState) => ({
+            ...prevState,
+            business_manager_id: true,
+          }));
+          hasErorrs = true;
+        }
+        if (
+          !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(
+            formData.contactEmail
+          )
+        ) {
+          hasErorrs = true;
+        }
       }
-      if (formData.contactName === "") {
-        setErrors((prevState) => ({ ...prevState, contactName: true }));
-        hasErorrs = true;
-      }
+
       if (formData.contactEmail === "") {
         setErrors((prevState) => ({ ...prevState, contactEmail: true }));
         hasErorrs = true;
-      } else if (
-        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(formData.contactEmail)
-      ) {
+      }
+
+      if (formData.website === "") {
+        setErrors((prevState) => ({ ...prevState, website: true }));
         hasErorrs = true;
       }
       if (formData.budget === "") {
@@ -192,6 +217,9 @@ function NewOrder() {
         businessName: false,
         contactName: false,
         contactEmail: false,
+
+        website: false,
+        business_manager_id: false,
       }));
     }
     // wait 1 second to show the loading
@@ -286,27 +314,7 @@ function NewOrder() {
               {t("NewOrder.EnterYourInformationsDescription")}
             </p>
             <Input
-              label="Business name"
-              placeholder="Business name"
-              name="businessName"
-              onBlur={handleInputBlur}
-              type="text"
-              value={formData.businessName}
-              onChange={handleInputChange}
-              error={errors.businessName}
-            />
-            <Input
-              label="Contact name"
-              name="contactName"
-              placeholder="Contact Name"
-              type="text"
-              onBlur={handleInputBlur}
-              value={formData.contactName}
-              onChange={handleInputChange}
-              error={errors.contactName}
-            />
-            <Input
-              label="Email"
+              label="Business Email"
               name="contactEmail"
               placeholder="example@email.com"
               type="email"
@@ -315,6 +323,52 @@ function NewOrder() {
               onBlur={handleInputBlur}
               error={errors.contactEmail}
             />
+            <Input
+              label="website"
+              placeholder="website"
+              name="website"
+              onBlur={handleInputBlur}
+              type="text"
+              value={formData.website}
+              onChange={handleInputChange}
+              error={errors.website}
+            />
+            {formData.product === "Meta" && (
+              <>
+                <Input
+                  label="Business name"
+                  placeholder="Business name"
+                  name="businessName"
+                  onBlur={handleInputBlur}
+                  type="text"
+                  value={formData.businessName}
+                  onChange={handleInputChange}
+                  error={errors.businessName}
+                />
+                <Input
+                  label="business manager id"
+                  placeholder="business manager id"
+                  name="business_manager_id"
+                  onBlur={handleInputBlur}
+                  type="text"
+                  className="mt-4"
+                  value={formData.business_manager_id}
+                  onChange={handleInputChange}
+                  error={errors.business_manager_id}
+                />
+
+                <Input
+                  label="Contact name"
+                  name="contactName"
+                  placeholder="Contact Name"
+                  type="text"
+                  onBlur={handleInputBlur}
+                  value={formData.contactName}
+                  onChange={handleInputChange}
+                  error={errors.contactName}
+                />
+              </>
+            )}
           </section>
         </div>
       )}{" "}
