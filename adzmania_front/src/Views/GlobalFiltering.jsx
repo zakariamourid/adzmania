@@ -20,7 +20,7 @@ const GlobalFiltering = ({
           Search
         </button>
       </div>
-      {selectFilter && (
+      {/* {selectFilter && (
         <div>
           <label className="mr-2">Filter:</label>
           <select className="border border-gray-300 rounded-md p-2">
@@ -30,7 +30,7 @@ const GlobalFiltering = ({
             <option value="pending">Process</option>
           </select>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

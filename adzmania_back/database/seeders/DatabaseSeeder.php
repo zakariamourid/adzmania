@@ -42,7 +42,9 @@ class DatabaseSeeder extends Seeder
             'payment_method' => 'cih',
             'business_name' => 'adzmania',
             'contact_name' => 'mohamed',
-            'email' => 'zakaria@gmail.com'
+            'email' => 'zakaria@gmail.com',
+            'business_manager_id' => '123456789',
+            'website' => 'adzmania.com',
         ]);
     }
 }

@@ -16,6 +16,8 @@ class Order extends Model
         'business_name',
         'contact_name',
         'email',
+        'website',
+        'business_manager_id',
         'payment_method',
     ];
 }

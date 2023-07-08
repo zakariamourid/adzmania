@@ -23,7 +23,7 @@ class AdminMiddleware
                 return response("error 404 " .Auth::user()->role);
             }
         }else{
-            return response("sir t7wa tconnecta");
+            return response("error 404 ");
         }
         
         

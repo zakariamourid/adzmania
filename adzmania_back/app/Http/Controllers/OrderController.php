@@ -31,9 +31,9 @@ return  new OrderCollection($orders);
                 [
                     'product' => 'required',
                     'price' => 'required',
-                    'business_name' => 'required',
-                    'contact_name' => 'required',
                     "payment_method"=>'required',
+                    "website"=>'required',
+                    'email' => 'required|email',
                   
                 ]
                 );
@@ -47,20 +47,25 @@ return  new OrderCollection($orders);
             "payment_method"=>$request->payment_method,
 	        "business_name"=>$request->business_name,
 	        "contact_name"=>$request->contact_name,
-             "email"=>$request->user()->email,
-      
+            "website" => $request->website,
+            "business_manager_id"=>$request->business_manager_id,
+            "email"=>$request->user()->email,
         ]);
+
         $user=$request->user();
     
-        Mail::to("zakariamourid10@gmail.com")->send(new AdminOrderNotification($order,$user));
+        dispatch (function () use ($order, $user) {
+    Mail::to("xahivo2618@niback.com")->send(new AdminOrderNotification($order,$user));
+    // Mail::to("zakariamourid10@gmail.com")->send(new AdminOrderNotification($order,$user));
+        })->afterResponse();
         }catch(\Exception $e){
             return response()->json([
                 'message' => 'Order not created',
-                'error' => $e->getMessage(),
+                'error' => $e->getMessage().$request->website,
             ], 400);
         }
         return response()->json([
-            'message' => 'Order created successfully',
+            'message' => 'Order created successfully '.$request->website,
             'payment_mode' => $order->payment_method,
             'order' => $order,
         ]);
