@@ -27,6 +27,7 @@ class AdminOrderController extends Controller
                 'message' => 'Order not found',
             ], 404);
         }
+        
         $order->status=$request->status;
         if($request->amount){
             $order->price=$request->amount;

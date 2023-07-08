@@ -28,6 +28,8 @@ class OrderResource extends JsonResource
             'contact_name' => $this->contact_name,
             'email' => $this->email,
             'date' => $this->created_at,
+            'website' => $this->website,
+            'business_manager_id' => $this->business_manager_id,
                 //    $orders = Order::select('id as order_id','product','payment_method as payment_mode','status','price as amount','user_id','created_at')
     //             ->where('user_id', $user->id)
     //             ->get()->map(function ($order) {
