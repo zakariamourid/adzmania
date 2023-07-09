@@ -37,7 +37,7 @@ const OrdersTable = () => {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      }
+      },
     );
     if (res.status === 200) {
       setIsOpen(false);
@@ -181,7 +181,7 @@ const OrdersTable = () => {
     },
     useGlobalFilter,
     useSortBy,
-    usePagination
+    usePagination,
   );
 
   const { pageIndex } = state;
@@ -222,7 +222,7 @@ const OrdersTable = () => {
                       {headerGroup.headers.map((column) => (
                         <th
                           {...column.getHeaderProps(
-                            column.getSortByToggleProps()
+                            column.getSortByToggleProps(),
                           )}
                           className="text-sm font-bold  px-6 py-4 text-left"
                         >

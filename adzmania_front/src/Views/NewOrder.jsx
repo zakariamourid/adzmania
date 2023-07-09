@@ -58,7 +58,7 @@ function NewOrder() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
       console.log(res);
     } catch (error) {
@@ -181,7 +181,7 @@ function NewOrder() {
         }
         if (
           !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(
-            formData.contactEmail
+            formData.contactEmail,
           )
         ) {
           hasErorrs = true;
