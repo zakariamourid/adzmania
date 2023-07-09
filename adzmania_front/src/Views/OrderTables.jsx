@@ -103,6 +103,9 @@ const OrdersTable = () => {
       {
         Header: "Amount",
         accessor: "amount",
+        Cell: ({ value }) => {
+          return value + " $";
+        },
       },
       {
         Header: "Status",

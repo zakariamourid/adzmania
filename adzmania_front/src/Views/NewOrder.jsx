@@ -1,8 +1,5 @@
 import React, { useState } from "react";
-// import { useRef, useEffect } from "react";
 import Input from "./Input";
-// import facebookLogo from "../assets/Logo/facebookLogo.svg";
-// import instagramLogo from "../assets/Logo/instagramLogo.svg";
 import tiktokLogo from "../assets/Logo/tiktokLogo.svg";
 import GoogleLogo from "../assets/Logo/GoogleLogo.svg";
 import SnapchatLogo from "../assets/Logo/snapchatLogo.svg";
@@ -61,7 +58,7 @@ function NewOrder() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        },
+        }
       );
       console.log(res);
     } catch (error) {
@@ -163,6 +160,7 @@ function NewOrder() {
       return;
     }
     let hasErorrs = false;
+
     if (FormStep === 1 || FormStep === 2 || FormStep === 3) {
       if (formData.product === "Meta") {
         if (formData.businessName === "") {
@@ -183,7 +181,7 @@ function NewOrder() {
         }
         if (
           !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(
-            formData.contactEmail,
+            formData.contactEmail
           )
         ) {
           hasErorrs = true;
@@ -191,6 +189,12 @@ function NewOrder() {
       }
 
       if (formData.contactEmail === "") {
+        setErrors((prevState) => ({ ...prevState, contactEmail: true }));
+        hasErorrs = true;
+      }
+      if (
+        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(formData.contactEmail)
+      ) {
         setErrors((prevState) => ({ ...prevState, contactEmail: true }));
         hasErorrs = true;
       }
@@ -217,7 +221,6 @@ function NewOrder() {
         businessName: false,
         contactName: false,
         contactEmail: false,
-
         website: false,
         business_manager_id: false,
       }));
@@ -412,6 +415,7 @@ function NewOrder() {
                   onBlur={handleInputBlur}
                   onChange={handleInputChange}
                   error={errors.budget}
+                  className="relative"
                 />
               </div>
             </div>
